@@ -1,0 +1,162 @@
+library(MASS)
+
+library(TreeDist)
+library(ape)
+library(phytools)
+
+library(ggplot2)
+library(ggrepel)
+# library(ggforce)
+
+maxBoots = 100 # set this to decide how many bootstraps to include
+
+treesML <- unlist(trees, recursive = F, use.names = T)
+
+treesBoots <- unlist(boots, recursive = F, use.names = T)
+treesBoots <- lapply(treesBoots, function(x) x[1:min(length(x), maxBoots)])
+
+for(i in names(treesBoots)) {
+  names(treesBoots[[i]]) <- paste('bt', sprintf("%03d", seq(length(treesBoots[[i]]))), sep = '')
+  } # close i
+
+treesBoots <- unlist(treesBoots, recursive = F, use.names = T)
+
+treesAll <- c(treesML, treesBoots)
+
+treesAll.pruned <- lapply(treesAll, function(x) {
+    temp <- strsplit(x$tip.label, '|', fixed = T)
+    temp <- sapply(temp, '[', 1)
+    x$tip.label <- temp
+    return(x)
+})
+
+allNames <- 
+    lapply(treesAll.pruned, '[[', 'tip.label') 
+allNames <- Reduce(intersect, allNames)
+
+treesAll.pruned <- lapply(treesAll.pruned, keep.tip, allNames)
+
+pdf('out/treesAll.pruned.pdf', 8.5, 11)
+for (i in names(treesML)) {
+  tr = treesAll.pruned[[i]]
+  plot(tr, cex = 0.6, main = i)
+  nodelabels(tr$node.label, node = seq(from = length(tr$tip.label) + 1, to = length(tr$tip.label) + tr$Nnode + 1),
+  frame = 'n', cex = 0.5, adj = c(1.5, -.5))
+}
+dev.off()
+
+## plotting parameters and distance
+cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+plotalpha <- c(ML = 1, Bootstrap = 0.5)
+plotpch.all <- c(ML = 19, Bootstrap = 1)
+plotsize <- c(ML = 5, Bootstrap = 1)
+
+# trees.dist <- RobinsonFoulds(treesAll.pruned)
+if(!exists('trees.dist')) trees.dist <- ClusteringInfoDistance(treesAll.pruned)
+
+## PULL out boots with > 1 distance = 0 (after turning)
+# NOT NEEDED with standard dimensional scaling
+# trees.dist.mat <- as.matrix(trees.dist)
+# removes <- 
+#   which(apply(trees.dist.mat, 1, function(x) sum(x < 0.0001)) > 1) |> 
+#   names() |> 
+#   grep(patt = '.bt', fixed = T, value = T)
+# trees.dist.mat <- trees.dist.mat[
+#   setdiff(row.names(trees.dist.mat), removes),
+#   setdiff(row.names(trees.dist.mat), removes)
+# ]
+# tree.dist <- as.dist(trees.dist.mat)
+
+## Ordinate and plot
+
+# trees.mds <- MASS::isoMDS(trees.dist, k = 2)
+# trees.points <- data.frame(trees.mds$points)
+
+trees.points <- cmdscale(trees.dist, 2) |>
+  as.data.frame()
+names(trees.points) <- c('mds1', 'mds2')
+DataSet <- c(
+    refRAD = "Reference-guided RADseq (empirical)",
+    reSeq = "Aligned reference genomes and reseq data",
+    simRAD = "Simulated RADseq (from aligned reference and reseq)"
+)
+
+trees.points$DataSet <- 
+  DataSet[sapply(strsplit(row.names(trees.points), '.', fixed = T),'[',1)]
+trees.points$TreeType <- 'Bootstrap'
+trees.points$TreeType[grep('.bt', row.names(trees.points), invert = T)] <- 'ML'
+trees.points$analysis <- 
+  sapply(strsplit(row.names(trees.points), '.', fixed = T),'[',2)
+
+treeplot.all <- 
+  ggplot(trees.points, aes(
+    x = mds1, y = mds2, 
+    color = DataSet))
+treeplot.all <- treeplot.all + 
+  geom_point(size = plotsize[trees.points$TreeType],
+            # alpha = plotalpha[trees.points$TreeType],
+            pch = plotpch.all[trees.points$TreeType]) + 
+  scale_fill_manual(values = cbbPalette) + 
+  # geom_label_repel(label = row.names(trees.points)) +
+  theme(
+      # legend.position = 'inside',
+      # legend.position.inside = c(0.3,0.9)
+      legend.position = 'bottom'
+  )
+ggsave(paste('out/treeordination_mx', maxBoots, 'bt.pdf', sep = ''), 
+        plot=treeplot.all)
+
+plotpch.refRAD <- c(
+  ref_alba_raxml = 'A', 
+  ref_glauca_raxml = 'G',
+  ref_longispica_raxml = 'L',
+  ref_rubra_raxml = 'R',
+  ref_tomentella_raxml = 'T',
+  ref_variablis_raxml = 'C',
+  ref_virginiana_raxml = 'V'
+  )
+
+treeplot.refRAD <- 
+  ggplot(trees.points[grep('refRAD', row.names(trees.points)), ], 
+    aes(x = mds1, y = mds2, color = analysis)
+    )
+treeplot.refRAD <- treeplot.refRAD + 
+  geom_point(
+    size = plotsize[trees.points[grep('refRAD', row.names(trees.points)), 'TreeType']],
+    pch = plotpch.refRAD[trees.points[grep('refRAD', row.names(trees.points)), 'analysis']]
+    ) + 
+  # geom_mark_hull()+
+  # geom_mark_ellipse() +
+  scale_fill_manual(values = cbbPalette) + 
+  theme(legend.position = 'bottom')
+ggsave(paste('out/treeordination_refRAD_mx', maxBoots, 'bt.pdf', sep = ''), plot=treeplot.refRAD)
+
+## inspecting treesAll -- cophyloplots and strict consensuses
+attach(treesAll.pruned)
+treesAll.cophylos <- list(
+  simRADalb_refalb = cophylo(simRAD.simRAD_Qalba_raxml, refRAD.ref_alba_raxml),
+  simRADalb_reseqalb = cophylo(simRAD.simRAD_Qalba_raxml, reSeq.reseq_Qalba),
+  reseqalb_refalb = cophylo(reSeq.reseq_Qalba, refRAD.ref_alba_raxml),
+  simRADalb_simRADvar = cophylo(simRAD.simRAD_Qalba_raxml, simRAD.simRAD_Qvar_raxml),
+  reseqalb_reseqvar = cophylo(reSeq.reseq_Qalba, reSeq.reseq_Qvar)
+)
+detach(treesAll.pruned)
+
+pdf('out/treesAll.cophylo.pdf', 8.5, 11)
+for(i in names(treesAll.cophylos)) {
+  # par(mar = c(5.1, 4.1, 8, 2.1))
+  plot(treesAll.cophylos[[i]])
+  title(i, line = -1)
+}
+dev.off()
+
+## get tree islands
+trees.dist2d <- dist(as.matrix(trees.points))
+trees.islands <- Islands(trees.dist2d, 0.2)
+do <- which(table(trees.islands)> 10) |> names()
+pdf('out/treesIslands.pdf', 10,10)
+plot(trees.points[which(trees.islands %in% do), c('mds1', 'mds2')], type = 'n')
+text(trees.points[which(trees.islands %in% do), c('mds1', 'mds2')], 
+    labels = trees.islands[which(trees.islands %in% do)])
+dev.off()
+
