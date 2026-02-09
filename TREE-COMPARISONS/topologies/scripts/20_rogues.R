@@ -1,0 +1,1 @@
+# do rogue analyses using `Rogue` package -- not written (2026-02-09)
