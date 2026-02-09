@@ -11,7 +11,9 @@ library(ggrepel)
 ## plotting parameters and distance
 cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 plotalpha <- c(ML = 1, Bootstrap = 0.5)
-plotpch.all <- c(ML = 19, Bootstrap = 1)
+plotpch.all <- 
+  c(ML_robalb = 19, Bootstrap_robalb = 1,
+  ML_robsister = 17, Bootstrap_robsister = 2)
 plotsize <- c(ML = 5, Bootstrap = 1)
 
 # trees.dist <- RobinsonFoulds(treesAll.pruned)
@@ -32,6 +34,21 @@ trees.points$TreeType <- 'Bootstrap'
 trees.points$TreeType[grep('.bt', row.names(trees.points), invert = T)] <- 'ML'
 trees.points$analysis <- 
   sapply(strsplit(row.names(trees.points), '.', fixed = T),'[',2)
+
+trees.points$RobType <- NA
+trees.points$RobType[
+  which(trees.points$TreeType == 'ML' & monophylyMat[, 'roburoids_albae'])
+  ] <- 'ML_robalb'
+trees.points$RobType[
+  which(trees.points$TreeType == 'ML' & !monophylyMat[, 'roburoids_albae'])
+  ] <- 'ML_robsister'
+trees.points$RobType[
+  which(trees.points$TreeType != 'ML' & monophylyMat[, 'roburoids_albae'])
+  ] <- 'Bootstrap_robalb'
+trees.points$RobType[
+  which(trees.points$TreeType != 'ML' & !monophylyMat[, 'roburoids_albae'])
+  ] <- 'Bootstrap_robsister'
+
 trees.points <- cbind(trees.points, monophylyMat)
 
 treeplot.all <- 
@@ -41,7 +58,7 @@ treeplot.all <-
 treeplot.all <- treeplot.all + 
   geom_point(size = plotsize[trees.points$TreeType],
             # alpha = plotalpha[trees.points$TreeType],
-            pch = plotpch.all[trees.points$TreeType]) + 
+            pch = plotpch.all[trees.points$RobType]) + 
   scale_fill_manual(values = cbbPalette) + 
   # geom_label_repel(label = row.names(trees.points)) +
   theme(
@@ -49,7 +66,7 @@ treeplot.all <- treeplot.all +
       # legend.position.inside = c(0.3,0.9)
       legend.position = 'bottom'
   )
-ggsave(paste('out/treeordination_mx', maxBoots, 'bt.pdf', sep = ''), 
+ggsave(paste('out/treeordination_v2_mx', maxBoots, 'bt.pdf', sep = ''), 
         plot=treeplot.all)
 
 plotpch.refRAD <- c(
