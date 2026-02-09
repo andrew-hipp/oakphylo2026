@@ -108,3 +108,42 @@ for(i in names(boots)) {
       })
       } # close j
     } # close i
+
+## Pruning data and creating tree sets
+
+maxBoots = 100 # set this to decide how many bootstraps to include
+
+treesML <- unlist(trees, recursive = F, use.names = T)
+
+treesBoots <- unlist(boots, recursive = F, use.names = T)
+treesBoots <- lapply(treesBoots, function(x) x[1:min(length(x), maxBoots)])
+
+for(i in names(treesBoots)) {
+  names(treesBoots[[i]]) <- paste('bt', sprintf("%03d", seq(length(treesBoots[[i]]))), sep = '')
+  } # close i
+
+treesBoots <- unlist(treesBoots, recursive = F, use.names = T)
+
+treesAll <- c(treesML, treesBoots)
+
+treesAll.pruned <- lapply(treesAll, function(x) {
+    temp <- strsplit(x$tip.label, '|', fixed = T)
+    temp <- sapply(temp, '[', 1)
+    x$tip.label <- temp
+    return(x)
+})
+
+allNames <- 
+    lapply(treesAll.pruned, '[[', 'tip.label') 
+allNames <- Reduce(intersect, allNames)
+
+treesAll.pruned <- lapply(treesAll.pruned, keep.tip, allNames)
+
+pdf('out/treesAll.pruned.pdf', 8.5, 11)
+for (i in names(treesML)) {
+  tr = treesAll.pruned[[i]]
+  plot(tr, cex = 0.6, main = i)
+  nodelabels(tr$node.label, node = seq(from = length(tr$tip.label) + 1, to = length(tr$tip.label) + tr$Nnode + 1),
+  frame = 'n', cex = 0.5, adj = c(1.5, -.5))
+}
+dev.off()
