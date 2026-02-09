@@ -1,37 +1,5 @@
 # compare topologies of the trees pruned to major groups
 
-## plot consensus trees
-trees.con <- list(
-  refRAD_ACLT = consensus(treesAll.pruned[c(
-    "refRAD.ref_alba_raxml",
-    "refRAD.ref_longispica_raxml",
-    "refRAD.ref_tomentella_raxml", 
-    "refRAD.ref_variablis_raxml")], 
-    rooted = TRUE),
-  refRAD_RGV = consensus(treesAll.pruned[c(
-    "refRAD.ref_glauca_raxml",
-    "refRAD.ref_rubra_raxml",
-    "refRAD.ref_virginiana_raxml")],
-    rooted = TRUE),
-  simRAD = consensus(treesAll.pruned[c(
-    "simRAD.simRAD_Qalba_raxml",
-    "simRAD.simRAD_Qvar_raxml")],
-    rooted = TRUE),
-  allBoots = consensus(treesAll.pruned),
-  allML = consensus(treesAll.pruned[grep('bt', names(treesAll.pruned), invert = T)])
-)
-
-for(i in do) {
-    trees.con[[paste('isle', i, sep = '')]] <- 
-    consensus(treesAll.pruned[which(trees.islands == i)])
-    }
-
-pdf('out/treesConsensus.pdf', 8.5, 11)
-for(i in names(trees.con)) {
-  plot(trees.con[[i]])
-  title(i, line = -1)
-}
-dev.off()
 
 ## compare topologies
 clades <- c(
