@@ -54,24 +54,6 @@ plotsize <- c(ML = 5, Bootstrap = 1)
 # trees.dist <- RobinsonFoulds(treesAll.pruned)
 if(!exists('trees.dist')) trees.dist <- ClusteringInfoDistance(treesAll.pruned)
 
-## PULL out boots with > 1 distance = 0 (after turning)
-# NOT NEEDED with standard dimensional scaling
-# trees.dist.mat <- as.matrix(trees.dist)
-# removes <- 
-#   which(apply(trees.dist.mat, 1, function(x) sum(x < 0.0001)) > 1) |> 
-#   names() |> 
-#   grep(patt = '.bt', fixed = T, value = T)
-# trees.dist.mat <- trees.dist.mat[
-#   setdiff(row.names(trees.dist.mat), removes),
-#   setdiff(row.names(trees.dist.mat), removes)
-# ]
-# tree.dist <- as.dist(trees.dist.mat)
-
-## Ordinate and plot
-
-# trees.mds <- MASS::isoMDS(trees.dist, k = 2)
-# trees.points <- data.frame(trees.mds$points)
-
 trees.points <- cmdscale(trees.dist, 2) |>
   as.data.frame()
 names(trees.points) <- c('mds1', 'mds2')
