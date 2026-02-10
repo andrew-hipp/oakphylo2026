@@ -1,3 +1,5 @@
+# Ordinations of trees
+
 library(MASS)
 
 library(TreeDist)
@@ -6,7 +8,6 @@ library(phytools)
 
 library(ggplot2)
 library(ggrepel)
-# library(ggforce)
 
 ## plotting parameters and distance
 cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
@@ -55,7 +56,7 @@ treeplot.all <-
   ggplot(trees.points, aes(
     x = mds1, y = mds2, 
     color = DataSet))
-treeplot.all <- treeplot.all + 
+treeplot.Final <- treeplot.all + 
   geom_point(size = plotsize[trees.points$TreeType],
             # alpha = plotalpha[trees.points$TreeType],
             pch = plotpch.all[trees.points$RobType]) + 
@@ -66,8 +67,28 @@ treeplot.all <- treeplot.all +
       # legend.position.inside = c(0.3,0.9)
       legend.position = 'bottom'
   )
-ggsave(paste('out/treeordination_v2_mx', maxBoots, 'bt.pdf', sep = ''), 
-        plot=treeplot.all)
+ggsave(paste('out/treeordinationFinal_v2_mx', maxBoots, 'bt.pdf', sep = ''), 
+        plot=treeplot.Final)
+
+## Plotting individual ordinations, symbols by clades
+treeplot.clades <- structure(
+  vector('list', dim(monophylyMat)[2]), 
+  names = colnames(monophylyMat)
+  )
+
+for(i in names(treeplot.clades)) {
+  treeplot.clades[[i]] <- treeplot.all + 
+  geom_point(size = plotsize[trees.points$TreeType],
+            # alpha = plotalpha[trees.points$TreeType],
+            aes(shape = .data[[i]])
+   ) + 
+  scale_fill_manual(values = cbbPalette) + 
+  theme(
+     legend.position = 'bottom'
+  )
+  ggsave(paste('out/treeordinationSupplement_', i, '.pdf', sep = ''), 
+        plot=treeplot.clades[[i]])
+}
 
 plotpch.refRAD <- c(
   ref_alba_raxml = 'A', 
