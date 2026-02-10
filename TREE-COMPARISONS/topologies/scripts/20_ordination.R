@@ -68,7 +68,7 @@ treeplot.Final <- treeplot.all +
   # geom_label_repel(label = row.names(trees.points)) +
   geom_label_repel(
     aes(label = ifelse(TreeType == 'ML', analysis, NA),
-    cex = 0.1)
+    size = 0.1)
   ) +
   theme(
       # legend.position = 'inside',
