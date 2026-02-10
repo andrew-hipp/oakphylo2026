@@ -67,8 +67,10 @@ treeplot.Final <- treeplot.all +
   scale_fill_manual(values = cbbPalette) + 
   # geom_label_repel(label = row.names(trees.points)) +
   geom_label_repel(
-    aes(label = ifelse(TreeType == 'ML', analysis, NA),
-    size = 0.1)
+    size = 2, alpha = 0.8, label.r = 0.01,
+    box.padding = 0.1, point.padding = 15, 
+    aes(label = ifelse(TreeType == 'ML', analysis, NA)
+    )
   ) +
   theme(
       # legend.position = 'inside',
@@ -76,9 +78,10 @@ treeplot.Final <- treeplot.all +
       legend.position = 'bottom'
   )
 if(globalDoPDF) {
-ggsave(paste('out/treeordinationFinal_v2_mx', maxBoots, 'bt.pdf', sep = ''), 
-        plot=treeplot.Final)
+  ggsave(paste('out/treeordinationFinal_v2_mx', maxBoots, 'bt.pdf', sep = ''), 
+          plot=treeplot.Final)
 }
+
 ## Plotting individual ordinations, symbols by clades
 treeplot.clades <- structure(
   vector('list', dim(monophylyMat)[2]), 
