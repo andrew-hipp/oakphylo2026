@@ -27,10 +27,12 @@ for(i in names(trees.points2)) {
     trees.envfit[[i]] <- envfit(
         trees.points2[[i]], 
         mm[attr(trees.points2[[i]],'dimnames')[[1]], ])
-    pdf(paste('out/envfit_', i, '.pdf', sep = ''))
-    plot(trees.points2[[i]])
-    plot(trees.envfit[[i]])
-    dev.off()
+    if(globalDoPDF) {
+        pdf(paste('out/envfit_', i, '.pdf', sep = ''))
+        plot(trees.points2[[i]])
+        plot(trees.envfit[[i]])
+        dev.off()
+        }
 } # close i
     
 

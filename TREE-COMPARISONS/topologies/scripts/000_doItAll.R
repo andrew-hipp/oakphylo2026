@@ -1,3 +1,6 @@
+globalDoPDF = FALSE # change this if you want to rewrite the pdfs
+rogues = FALSE # change this is you really want to rerun the tedious rogues analysis
+
 message('** SCRIPT 00 **')
 source('scripts/00_readData.R')
 message('** SCRIPT 10 **')

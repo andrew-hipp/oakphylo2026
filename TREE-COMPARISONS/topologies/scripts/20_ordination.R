@@ -75,9 +75,10 @@ treeplot.Final <- treeplot.all +
       # legend.position.inside = c(0.3,0.9)
       legend.position = 'bottom'
   )
+if(globalDoPDF) {
 ggsave(paste('out/treeordinationFinal_v2_mx', maxBoots, 'bt.pdf', sep = ''), 
         plot=treeplot.Final)
-
+}
 ## Plotting individual ordinations, symbols by clades
 treeplot.clades <- structure(
   vector('list', dim(monophylyMat)[2]), 
@@ -94,8 +95,10 @@ for(i in names(treeplot.clades)) {
   # theme(
   #    legend.position = 'bottom'
   # )
+if(globalDoPDF) {
   ggsave(paste('out/treeordinationSupplement_', i, '.pdf', sep = ''), 
         plot=treeplot.clades[[i]])
+}
 }
 
 plotpch.refRAD <- c(
@@ -119,8 +122,9 @@ treeplot.refRAD <- treeplot.refRAD +
     ) + 
   scale_fill_manual(values = cbbPalette) + 
   theme(legend.position = 'bottom')
+if(globalDoPDF) {
 ggsave(paste('out/treeordination_refRAD_mx', maxBoots, 'bt.pdf', sep = ''), plot=treeplot.refRAD)
-
+}
 ## inspecting treesAll -- cophyloplots and strict consensuses
 attach(treesAll.pruned)
 treesAll.cophylos <- list(
@@ -132,6 +136,7 @@ treesAll.cophylos <- list(
 )
 detach(treesAll.pruned)
 
+if(globalDoPDF) {
 pdf('out/treesAll.cophylo.pdf', 8.5, 11)
 for(i in names(treesAll.cophylos)) {
   # par(mar = c(5.1, 4.1, 8, 2.1))
@@ -139,17 +144,18 @@ for(i in names(treesAll.cophylos)) {
   title(i, line = -1)
 }
 dev.off()
-
+}
 ## get tree islands
 trees.dist2d <- dist(as.matrix(trees.points))
 trees.islands <- Islands(trees.dist2d, 0.2)
 do <- which(table(trees.islands)> 10) |> names()
+if(globalDoPDF) {
 pdf('out/treesIslands.pdf', 10,10)
 plot(trees.points[which(trees.islands %in% do), c('mds1', 'mds2')], type = 'n')
 text(trees.points[which(trees.islands %in% do), c('mds1', 'mds2')], 
     labels = trees.islands[which(trees.islands %in% do)])
 dev.off()
-
+}
 ## plot consensus trees
 trees.con <- list(
   refRAD_ACLT = consensus(treesAll.pruned[c(
@@ -176,9 +182,11 @@ for(i in do) {
     consensus(treesAll.pruned[which(trees.islands == i)])
     }
 
+if(globalDoPDF) {
 pdf('out/treesConsensus.pdf', 8.5, 11)
 for(i in names(trees.con)) {
   plot(trees.con[[i]])
   title(i, line = -1)
 }
 dev.off()
+}

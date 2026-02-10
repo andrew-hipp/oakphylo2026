@@ -30,6 +30,7 @@ for(i in names(treesAll.clades)) {
     treesAll.clades[[i]]$tip.label <- clades[gsub('Quercus ', '', treesAll.clades[[i]]$tip.label)]    
 }
 
+if(globalDoPDF) {
 pdf('out/treesAll.pruned.clades.pdf', 8.5, 11)
 for (i in names(treesAll.clades)) {
   tr = treesAll.clades[[i]]
@@ -38,7 +39,7 @@ for (i in names(treesAll.clades)) {
   frame = 'n', cex = 0.5, adj = c(1.5, -.5))
 }
 dev.off()
-
+}
 ## check monophyly of clades
 clades_check <- list(
     Quercus_CA = c(

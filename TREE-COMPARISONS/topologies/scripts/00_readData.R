@@ -71,6 +71,7 @@ for(i in names(trees)) {
     return(x)
   })
 
+if(globalDoPDF) {
   for(j in names(trees[[i]])) {
     message(paste('doing', j))
     pdf(paste('out/', j, '.pdf', sep = ''), 10, 30)
@@ -79,7 +80,7 @@ for(i in names(trees)) {
     dev.off()
     } # close j
     } # close i
-
+}
 ## relabelling bootstrap sets
 
 for(i in names(boots)) {
@@ -139,6 +140,7 @@ allNames <- Reduce(intersect, allNames)
 
 treesAll.pruned <- lapply(treesAll.pruned, keep.tip, allNames)
 
+if(globalDoPDF) {
 pdf('out/treesAll.pruned.pdf', 8.5, 11)
 for (i in names(treesML)) {
   tr = treesAll.pruned[[i]]
@@ -147,3 +149,4 @@ for (i in names(treesML)) {
   frame = 'n', cex = 0.5, adj = c(1.5, -.5))
 }
 dev.off()
+}
