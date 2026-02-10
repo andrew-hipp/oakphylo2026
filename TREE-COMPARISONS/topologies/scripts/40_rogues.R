@@ -16,3 +16,5 @@ for(i in names(rogues$boots)){
         write.csv(rogues$boots[[i]][[j]], paste('out/rogues_',j,'.csv', sep = ''))
     }
 }
+
+write.csv(rogues$allPruned, paste('out/rogues_treesAllPruned.csv'))

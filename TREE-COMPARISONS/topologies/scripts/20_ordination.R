@@ -66,6 +66,10 @@ treeplot.Final <- treeplot.all +
             pch = plotpch.all[trees.points$RobType]) + 
   scale_fill_manual(values = cbbPalette) + 
   # geom_label_repel(label = row.names(trees.points)) +
+  geom_label_repel(
+    aes(label = ifelse(TreeType == 'ML', analysis, NA),
+    cex = 0.1)
+  ) +
   theme(
       # legend.position = 'inside',
       # legend.position.inside = c(0.3,0.9)
