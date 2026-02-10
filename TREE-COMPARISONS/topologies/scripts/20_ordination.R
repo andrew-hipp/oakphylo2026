@@ -1,5 +1,9 @@
 # Ordinations of trees
 
+### STILL TO DO
+### 1. make nice legends
+### 2. add repel-labels for the ML trees (11)
+
 library(MASS)
 
 library(TreeDist)
@@ -82,10 +86,10 @@ for(i in names(treeplot.clades)) {
             # alpha = plotalpha[trees.points$TreeType],
             aes(shape = .data[[i]])
    ) + 
-  scale_fill_manual(values = cbbPalette) + 
-  theme(
-     legend.position = 'bottom'
-  )
+  scale_fill_manual(values = cbbPalette) 
+  # theme(
+  #    legend.position = 'bottom'
+  # )
   ggsave(paste('out/treeordinationSupplement_', i, '.pdf', sep = ''), 
         plot=treeplot.clades[[i]])
 }
