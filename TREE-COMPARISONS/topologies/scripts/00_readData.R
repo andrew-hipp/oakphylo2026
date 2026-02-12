@@ -74,7 +74,7 @@ for(i in names(trees)) {
 if(globalDoPDF) {
   for(j in names(trees[[i]])) {
     message(paste('doing', j))
-    pdf(paste('out/', j, '.pdf', sep = ''), 10, 30)
+    pdf(paste('out/trees/', j, '.pdf', sep = ''), 10, 30)
     plot(trees[[i]][[j]], cex = 0.6)
     nodelabels(text = trees[[i]][[j]]$node.label, frame = 'n', cex = 0.5, adj = c(1.5, -.5))
     dev.off()
@@ -141,7 +141,7 @@ allNames <- Reduce(intersect, allNames)
 treesAll.pruned <- lapply(treesAll.pruned, keep.tip, allNames)
 
 if(globalDoPDF) {
-pdf('out/treesAll.pruned.pdf', 8.5, 11)
+pdf('out/trees/treesAll.pruned.pdf', 8.5, 11)
 for (i in names(treesML)) {
   tr = treesAll.pruned[[i]]
   plot(tr, cex = 0.6, main = i)

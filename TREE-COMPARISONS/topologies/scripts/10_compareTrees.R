@@ -31,7 +31,7 @@ for(i in names(treesAll.clades)) {
 }
 
 if(globalDoPDF) {
-pdf('out/treesAll.pruned.clades.pdf', 8.5, 11)
+pdf('out/trees/treesAll.pruned.clades.pdf', 8.5, 11)
 for (i in names(treesAll.clades)) {
   tr = treesAll.clades[[i]]
   plot(tr, cex = 1, main = i)
@@ -85,4 +85,4 @@ for(i in names(treesAll.clades)){
   }
 }
 
-write.csv(monophylyMat, 'out/monophylyMat.csv')
+write.csv(monophylyMat, 'out/tables/monophylyMat.csv')

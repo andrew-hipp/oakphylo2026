@@ -8,7 +8,7 @@ trees.points2 <- list(
     all = cmdscale(trees.dist, 2),
     refRAD = cmdscale(
         d = as.dist(
-            as.matrix(trees.dist)[
+            as.matrixPDF(trees.dist)[
                 grep('refRAD', names(treesAll)), 
                 grep('refRAD', names(treesAll))]), 
         k = 2),
@@ -28,7 +28,7 @@ for(i in names(trees.points2)) {
         trees.points2[[i]], 
         mm[attr(trees.points2[[i]],'dimnames')[[1]], ])
     if(globalDoPDF) {
-        pdf(paste('out/envfit_', i, '.pdf', sep = ''))
+        pdf(paste('out/ordinations/envfit_', i, '.pdf', sep = ''))
         plot(trees.points2[[i]])
         plot(trees.envfit[[i]])
         dev.off()

@@ -186,7 +186,7 @@ for(i in do) {
     }
 
 if(globalDoPDF) {
-pdf('out/treesConsensus.pdf', 8.5, 11)
+pdf('out/trees/treesConsensus.pdf', 8.5, 11)
 for(i in names(trees.con)) {
   plot(trees.con[[i]])
   title(i, line = -1)
