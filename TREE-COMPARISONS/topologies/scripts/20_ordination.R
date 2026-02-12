@@ -163,6 +163,10 @@ dev.off()
 
 ## plot consensus trees
 trees.con <- list(
+  refRAD_allBoots = consensus(unlist(boots$refRAD, recursive = FALSE), rooted = T),
+  refRAD_alb_var = consensus(unlist(boots$refRAD[c('ref_alba_raxml', 'rev_variabilis_raxml')], recursive = FALSE), rooted = T),
+  simRAD_allBoots = consensus(unlist(boots$simRAD, recursive = FALSE), rooted = T),
+  reSeq_allBoots = consensus(unlist(boots$reSeq, recursive = FALSE), rooted = T),
   refRAD_ACLT = consensus(treesAll.pruned[c(
     "refRAD.ref_alba_raxml",
     "refRAD.ref_longispica_raxml",
@@ -190,7 +194,10 @@ for(i in do) {
 if(globalDoPDF) {
 pdf('out/trees/treesConsensus.pdf', 8.5, 11)
 for(i in names(trees.con)) {
-  plot(trees.con[[i]])
+  plot(
+    trees.con[[i]], 
+    cex = ifelse(length(trees.con[[i]]$tip.label) > 100, 0.1, 0.7)
+    ) # close plot
   title(i, line = -1)
 }
 dev.off()
