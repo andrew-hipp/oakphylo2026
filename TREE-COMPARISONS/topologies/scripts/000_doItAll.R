@@ -9,5 +9,8 @@ message('** SCRIPT 20 **')
 source('scripts/20_ordination.R')
 message('** SCRIPT 30 **')
 source('scripts/30_cladeLoadings.R')
-# message('** SCRIPT 40 **')
-# source('scripts/40_rogues.R')
+
+if(rogues){
+    message('** SCRIPT 40 **')
+    source('scripts/40_rogues.R')
+    } else message('** SKIPPING ROGUES ANALYSES **')
