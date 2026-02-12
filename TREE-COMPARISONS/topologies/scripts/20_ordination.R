@@ -78,7 +78,7 @@ treeplot.Final <- treeplot.all +
       legend.position = 'bottom'
   )
 if(globalDoPDF) {
-  ggsave(paste('out/treeordinationFinal_v2_mx', maxBoots, 'bt.pdf', sep = ''), 
+  ggsave(paste('out/ordinations/treeordinationFinal_v2_mx', maxBoots, 'bt.pdf', sep = ''), 
           plot=treeplot.Final)
 }
 
@@ -99,7 +99,7 @@ for(i in names(treeplot.clades)) {
   #    legend.position = 'bottom'
   # )
 if(globalDoPDF) {
-  ggsave(paste('out/treeordinationSupplement_', i, '.pdf', sep = ''), 
+  ggsave(paste('out/ordinations/treeordinationSupplement_', i, '.pdf', sep = ''), 
         plot=treeplot.clades[[i]])
 }
 }
@@ -126,7 +126,7 @@ treeplot.refRAD <- treeplot.refRAD +
   scale_fill_manual(values = cbbPalette) + 
   theme(legend.position = 'bottom')
 if(globalDoPDF) {
-ggsave(paste('out/treeordination_refRAD_mx', maxBoots, 'bt.pdf', sep = ''), plot=treeplot.refRAD)
+ggsave(paste('out/ordinations/treeordination_refRAD_mx', maxBoots, 'bt.pdf', sep = ''), plot=treeplot.refRAD)
 }
 ## inspecting treesAll -- cophyloplots and strict consensuses
 attach(treesAll.pruned)
@@ -153,7 +153,7 @@ trees.dist2d <- dist(as.matrix(trees.points))
 trees.islands <- Islands(trees.dist2d, 0.2)
 do <- which(table(trees.islands)> 10) |> names()
 if(globalDoPDF) {
-pdf('out/treesIslands.pdf', 10,10)
+pdf('out/ordinations/treesIslands.pdf', 10,10)
 plot(trees.points[which(trees.islands %in% do), c('mds1', 'mds2')], type = 'n')
 text(trees.points[which(trees.islands %in% do), c('mds1', 'mds2')], 
     labels = trees.islands[which(trees.islands %in% do)])
