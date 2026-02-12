@@ -128,6 +128,7 @@ treeplot.refRAD <- treeplot.refRAD +
 if(globalDoPDF) {
 ggsave(paste('out/ordinations/treeordination_refRAD_mx', maxBoots, 'bt.pdf', sep = ''), plot=treeplot.refRAD)
 }
+
 ## inspecting treesAll -- cophyloplots and strict consensuses
 attach(treesAll.pruned)
 treesAll.cophylos <- list(
@@ -159,6 +160,7 @@ text(trees.points[which(trees.islands %in% do), c('mds1', 'mds2')],
     labels = trees.islands[which(trees.islands %in% do)])
 dev.off()
 }
+
 ## plot consensus trees
 trees.con <- list(
   refRAD_ACLT = consensus(treesAll.pruned[c(
@@ -176,13 +178,13 @@ trees.con <- list(
     "simRAD.simRAD_Qalba_raxml",
     "simRAD.simRAD_Qvar_raxml")],
     rooted = TRUE),
-  allBoots = consensus(treesAll.pruned),
-  allML = consensus(treesAll.pruned[grep('bt', names(treesAll.pruned), invert = T)])
+  allBoots = consensus(treesAll.pruned, rooted = TRUE),
+  allML = consensus(treesAll.pruned[grep('bt', names(treesAll.pruned), invert = T)], rooted = TRUE)
 )
 
 for(i in do) {
     trees.con[[paste('isle', i, sep = '')]] <- 
-    consensus(treesAll.pruned[which(trees.islands == i)])
+    consensus(treesAll.pruned[which(trees.islands == i)], rooted = TRUE)
     }
 
 if(globalDoPDF) {
