@@ -13,8 +13,8 @@ if(!exists('rogues')) {
 
 for(i in names(rogues$boots)){
     for(j in names(rogues$boots[[i]])){
-        write.csv(rogues$boots[[i]][[j]], paste('out/rogues_',j,'.csv', sep = ''))
+        write.csv(rogues$boots[[i]][[j]], paste('out/rogues/rogues_',j,'.csv', sep = ''))
     }
 }
 
-write.csv(rogues$allPruned, paste('out/rogues_treesAllPruned.csv'))
+write.csv(rogues$allPruned, paste('out/rogues/rogues_treesAllPruned.csv'))
