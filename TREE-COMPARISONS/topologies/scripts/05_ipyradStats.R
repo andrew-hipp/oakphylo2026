@@ -34,3 +34,7 @@ for(i in names(dat_hilo)){
                 ) # close names <-
     } # close j
 } # close i
+
+GREPS NEEDED:
+'distinct alignment patterns'
+'Proportion of gaps'

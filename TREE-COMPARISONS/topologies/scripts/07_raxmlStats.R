@@ -1,19 +1,31 @@
-## read first line of phylip files and raxml info files
+## identify files
 
-phyfiles <- 0 # function needed here to get all the file paths
+files_phy <- dir('data', recursive = T, patt = 'phy.gz', full = T) 
+files_rax <- dir('data', recursive = T, patt = '_info.', full = T) 
 
-dat_phy <- sapply(raxphy, function(x){
-    # go get all the rax info files and parse out -- FINISH
-    con <- gzfile(, open = "r")
-    lines <- readLines(con, n = 1)
+## extract bp from phylip files
+dat_bp <- sapply(files_phy, function(x){
+    con <- gzfile(x, open = "r")
+    lines <- readLines(con, n = 1) |>
+        strsplit(split = ' ', fixed = T) |>
+        getElement(name = 1) |>
+        getElement(name = 2) |>
+        as.integer()
     close(con)
     return(lines)}
 ) # close sapply
-names(dat_phy) <- 0 # ... and give them nice clean names -- FINISH
 
+names(dat_bp) <- 
+    strsplit(files_phy, '/') |>
+    sapply(FUN = getElement, 3)
 
+## extract elements from raxml summaries
+dat_rax <- sapply(files_rax, function(x) {
+    temp <- readLines(x)
+}) # close sapply
+names(dat_rax) <-
 
-## make supplement table
+## make supplement table from ipyrad
 summary_cols <- c(
     'dataset', # or as row.name
     'min4 loci', # loci in the min 4 ipyrad dataset
