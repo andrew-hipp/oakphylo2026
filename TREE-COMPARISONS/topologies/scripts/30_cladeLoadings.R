@@ -8,7 +8,7 @@ trees.points2 <- list(
     all = cmdscale(trees.dist, 2),
     refRAD = cmdscale(
         d = as.dist(
-            as.matrixPDF(trees.dist)[
+            as.matrix(trees.dist)[
                 grep('refRAD', names(treesAll)), 
                 grep('refRAD', names(treesAll))]), 
         k = 2),

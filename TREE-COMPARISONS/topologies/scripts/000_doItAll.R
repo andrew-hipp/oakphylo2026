@@ -3,6 +3,9 @@ rogues = FALSE # change this is you really want to rerun the tedious rogues anal
 
 message('** SCRIPT 00 **')
 source('scripts/00_readData.R')
+
+source('scripts/05_ipyradStats.R')
+
 message('** SCRIPT 10 **')
 source('scripts/10_compareTrees.R')
 message('** SCRIPT 20 **')
