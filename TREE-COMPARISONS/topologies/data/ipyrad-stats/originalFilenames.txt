@@ -1,6 +1,7 @@
 SingleTipQuercus20231006-denovo-min4tm90rm3-2025_stats.txt
 SingleTipQuercus20231006-refAlba-min4tm90rm3-2025_stats.txt
 SingleTipQuercus20231006-refGlauca-min4tm90rm3-2025_stats.txt
+SingleTipQuercus20231006-refLongiscapa-min4tm90rm3-2025_stats.txt
 SingleTipQuercus20231006-refRex-min4tm90rm3-2025_stats.txt
 SingleTipQuercus20231006-refRubra-min4tm90rm3-2025_stats.txt
 SingleTipQuercus20231006-refTomentella-min4tm90rm3-2025_stats.txt
