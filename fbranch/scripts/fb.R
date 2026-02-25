@@ -3,13 +3,13 @@ library(readr)
 
 # Read the file
 dat_alba <- read_delim(
-    "Results_fBranch.oakphylo2025.Qalba.merged_calls.2026_02_06",
+    "data/Results_fBranch.oakphylo2025.Qalba.merged_calls.2026_02_06",
     delim = "\t",
     skip = 0
 ) |> as.data.frame()
 
 dat_var <- read_delim(
-    "Results_fBranch.oakphylo2025.Qvar.merged_calls.2026_02_06",
+    "data/Results_fBranch.oakphylo2025.Qvar.merged_calls.2026_02_06",
     delim = "\t",
     skip = 0
 ) |> as.data.frame()
@@ -45,7 +45,7 @@ find.top <- function(m = head(fb_max_alba, 10), d = dat_alba, desc = NULL) {
 }
 
 albaResults = find.top(fb_max_alba[1:30], desc = dat.descendants_alba)
-write.csv(results$fb_max_mat, 'fb_max_alba.csv', row.names = T)
+write.csv(results$fb_max_mat, 'out/fb_max_alba.csv', row.names = T)
 
 dat_var_trim <- dat_var[grep('Quercus', row.names(dat_var)), grep('Quercus', colnames(dat_var))]
 dat_alba_trim <- dat_alba[grep('Quercus', row.names(dat_alba)), grep('Quercus', colnames(dat_alba))]
