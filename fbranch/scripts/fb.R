@@ -3,6 +3,8 @@ library(readr)
 library(tidyr)
 library(tidyverse)
 
+cbb <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+rby <- 6 #roundby
 ## Read files
 dat_alba <- read_delim(
     "data/Results_fBranch.oakphylo2025.Qalba.merged_calls.2026_02_06",
@@ -32,7 +34,7 @@ row.names(dat_var)[grep(',', dat_var$branch_descendants, fixed = T, invert = T)]
 dat.descendants_alba <- structure(dat_alba$branch_descendants, names = row.names(dat_alba))
 dat_alba[c('branch_descendants', 'branch', 'Outgroup')] <- NULL
 fb_max_alba <- apply(dat_alba, 1, max, na.rm = T) |>
-  sort(decrrownames_to_columneasing = T)
+  sort(decreasing = T)
 
 dat.descendants_var <- structure(dat_var$branch_descendants, names = row.names(dat_var))
 dat_var[c('branch_descendants', 'branch', 'Outgroup')] <- NULL
@@ -62,14 +64,47 @@ dat_alba_long$rowSect[grep('Quercus', dat_alba_long$row)] <-
     dat_taxa[dat_alba_long$row[grep('Quercus', dat_alba_long$row)]]
     
 #### 2b. ... else get sect of all descendants and...
-
-#### 2b1. ... if all descendents of row are the same, return sect of row...
-
-#### 2b2. ... else return "MIXED"
+dat_alba_descList <- lapply(dat_alba_long$row[grep('Quercus', dat_alba_long$row, invert = T)], function(x) {
+    temp <- strsplit(dat.descendants_alba[x], ',', fixed = T)[[1]]
+    out <- dat_taxa[temp] |> as.character()
+    return(out)
+})
+#### 2b. ... if all descendants of row are the same, return sect of row, else return "MIXED"
+dat_alba_long$rowSect[grep('Quercus', dat_alba_long$row, invert = T)] <-
+    sapply(dat_alba_descList, function(x) {
+        temp <- unique(x)
+        out <- ifelse(length(temp) == 1, temp, 'MIXED')
+    })
 
 #### 3a. If rowSect == colSect, return compareSect = rowSect
+####     else return compareSect = "INTERSECTION"
+dat_alba_long$compareSect <- apply(dat_alba_long[c('colSect', 'rowSect')], 1, function(x) {
+    ifelse(x[1] == x[2], x[1], 'INTERSECTION')
+    })
 
-#### 3b. ... else return compareSect = "INTERSECTION"
+summary_stats <- filter(dat_alba_long, rowSect != 'MIXED') |>
+    group_by(compareSect) |>
+    summarise(mean = mean(value, na.rm = TRUE),
+                sd = sd(value, na.rm = TRUE),
+                .groups = 'drop')
+summary_stats$n <-
+    sapply(summary_stats$compareSect, function(x) {
+        filter(dat_alba_long, rowSect != 'MIXED', compareSect == x) |> nrow()
+        })
+summary_stats$sem <- summary_stats$sd / sqrt(summary_stats$n)
+summary_stats$mean_sem <- paste(
+    round(summary_stats$mean, rby), 
+    '+/-',
+    round(summary_stats$sem, rby))
+
+write.csv(summary_stats |> mutate(across(where(is.numeric), ~round(., rby))), 
+            'out/fbranchMean_by_sect.csv')
+
+pp <- ggplot(filter(dat_alba_long, rowSect != 'MIXED'), aes(x = value, fill = compareSect)) +
+        geom_density(alpha = 0.6) +
+        labs(x = "fBranch Value", y = "Density", fill = "Section Comparison") +
+        scale_fill_manual(values = cbb) +
+        theme_minimal()
 
 ## function to find the top fb values for all rows
 find.top <- function(m = head(fb_max_alba, 10), d = dat_alba, desc = NULL) {
