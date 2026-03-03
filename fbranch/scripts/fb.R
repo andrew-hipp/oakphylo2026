@@ -75,6 +75,7 @@ dat_alba_long$rowSect[grep('Quercus', dat_alba_long$row, invert = T)] <-
         temp <- unique(x)
         out <- ifelse(length(temp) == 1, temp, 'MIXED')
     })
+dat_alba_long <- filter(dat_alba_long, !is.na(value))
 
 #### 3a. If rowSect == colSect, return compareSect = rowSect
 ####     else return compareSect = "INTERSECTION"
@@ -92,12 +93,15 @@ summary_stats$n <-
         filter(dat_alba_long, rowSect != 'MIXED', compareSect == x) |> nrow()
         })
 summary_stats$sem <- summary_stats$sd / sqrt(summary_stats$n)
-summary_stats$mean_sem <- paste(
+summary_stats$fb_mean_sem <- paste(
     round(summary_stats$mean, rby), 
     '+/-',
     round(summary_stats$sem, rby))
 
 write.csv(summary_stats |> mutate(across(where(is.numeric), ~round(., rby))), 
+            'out/fbranchMean_by_sect.csv')
+write.csv((summary_stats |> 
+            mutate(across(where(is.numeric), ~round(., rby))))[, c('compareSect','fb_mean_sem', 'n')], 
             'out/TABLE2_fbranchMean_by_sect.csv')
 
 pp <- ggplot(filter(dat_alba_long, rowSect != 'MIXED'), aes(x = value, fill = compareSect)) +
