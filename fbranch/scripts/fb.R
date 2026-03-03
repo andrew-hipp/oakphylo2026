@@ -98,7 +98,7 @@ summary_stats$mean_sem <- paste(
     round(summary_stats$sem, rby))
 
 write.csv(summary_stats |> mutate(across(where(is.numeric), ~round(., rby))), 
-            'out/fbranchMean_by_sect.csv')
+            'out/TABLE2_fbranchMean_by_sect.csv')
 
 pp <- ggplot(filter(dat_alba_long, rowSect != 'MIXED'), aes(x = value, fill = compareSect)) +
         geom_density(alpha = 0.6) +
