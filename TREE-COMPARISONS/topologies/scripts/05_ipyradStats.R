@@ -35,6 +35,6 @@ for(i in names(dat_hilo)){
     } # close j
 } # close i
 
-GREPS NEEDED:
-'distinct alignment patterns'
-'Proportion of gaps'
+# GREPS NEEDED:
+# 'distinct alignment patterns'
+# 'Proportion of gaps'
