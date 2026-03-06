@@ -1,5 +1,6 @@
 # oakphylo_bookch_2026
 Contains main analysis script and helper scripts to run RADinitio with whole genome data
+kalthaus@mortonarb.org / kalthaus@uchicago.edu
 
 ## OakBookChapter_radinitioPipeline.sh
 The primary RADinitio pipeline. Takes as input a directory containing your reference genome and the names of two output directories the script will generate.
