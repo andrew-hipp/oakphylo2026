@@ -1,5 +1,5 @@
 # oakphylo_bookch_2026
-Contains main analysis script and helper scripts to run RADinitio with whole genome data
+Contains main analysis script and helper scripts to run RADinitio with whole genome data  
 kalthaus@mortonarb.org / kalthaus@uchicago.edu
 
 ## OakBookChapter_radinitioPipeline.sh
