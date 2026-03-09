@@ -4,6 +4,7 @@
 library(ape)
 library(openxlsx)
 library(ggplot2)
+library(phytools)
 
 ## reading data
 
@@ -67,14 +68,14 @@ for(i in names(trees)) {
       x$tip.label <- dat_meta$simRAD[x$tip.label, 'Organism.Name']
       og <- grep('Lithocarpus', x$tip.label)
     }
-    x <- root(x, og) |> ladderize()
+    x <- root(x, og, edgelabel = TRUE) |> ladderize()
     return(x)
   })
 
 if(globalDoPDF) {
   for(j in names(trees[[i]])) {
     message(paste('doing', j))
-    pdf(paste('out/trees/', j, '.pdf', sep = ''), 10, 30)
+    pdf(paste('out/trees/FIGSxx_', j, '.pdf', sep = ''), 10, 30)
     plot(trees[[i]][[j]], cex = 0.6)
     nodelabels(text = trees[[i]][[j]]$node.label, frame = 'n', cex = 0.5, adj = c(1.5, -.5))
     dev.off()
@@ -104,7 +105,7 @@ for(i in names(boots)) {
         x$tip.label <- dat_meta$simRAD[x$tip.label, 'Organism.Name']
         og <- grep('Lithocarpus', x$tip.label)
       }
-      x <- root(x, og) |> ladderize()
+      x <- root(x, og, edgelabel = TRUE) |> ladderize()
       return(x)
       })
       } # close j
@@ -141,12 +142,45 @@ allNames <- Reduce(intersect, allNames)
 treesAll.pruned <- lapply(treesAll.pruned, keep.tip, allNames)
 
 if(globalDoPDF) {
-pdf('out/trees/treesAll.pruned.pdf', 8.5, 11)
-for (i in names(treesML)) {
-  tr = treesAll.pruned[[i]]
-  plot(tr, cex = 0.6, main = i)
-  nodelabels(tr$node.label, node = seq(from = length(tr$tip.label) + 1, to = length(tr$tip.label) + tr$Nnode + 1),
-  frame = 'n', cex = 0.5, adj = c(1.5, -.5))
-}
-dev.off()
+  pdf('out/trees/treesAll.pruned.pdf', 7, 10)
+  for (i in names(treesML)) {
+    tr = treesAll.pruned[[i]]
+    plot(tr, cex = 0.6, main = i)
+    nodelabels(tr$node.label, node = seq(from = length(tr$tip.label) + 1, to = length(tr$tip.label) + tr$Nnode + 1),
+    frame = 'n', cex = 0.5, adj = c(1.5, -.5))
+  }
+  dev.off()
+  
+  pdf('out/figures/FIG3_reseqPhylos.pdf', 7, 10)
+  qv <- drop.tip(
+    trees$reSeq$reseq_Qvar, 
+    grep('Lithocarpus', trees$reSeq$reseq_Qvar$tip.label)
+    )
+  qv$node.label <- ifelse(qv$node.label == '100', NA, qv$node.label)
+  qv$tip.label <- gsub("Quercus ", '', qv$tip.label)
+  
+  qa <- drop.tip(
+    trees$reSeq$reseq_Qalba, 
+    grep('Lithocarpus', trees$reSeq$reseq_Qalba$tip.label)
+    )
+  qa$node.label <- ifelse(qa$node.label == '100', NA, qa$node.label)
+  qa$tip.label <- gsub('Quercus ', '', qa$tip.label)
+
+  temp <- cophylo(qa, qv, cex = 0.6)
+  plot(temp, fsize = 0.6)
+  nodelabels.cophylo(
+    text = qa$node.label,
+    node = 1:qa$Nnode + Ntip(qa),
+    which = 'left', cex = 0.5, adj = c(1.5, -0.2), 
+    frame = 'n', font = 2
+    )
+  mtext("  (a)", side = 3, adj = 0, line = -2, font = 2)
+  nodelabels.cophylo(
+    text = qv$node.label,
+    node = 1:qv$Nnode + Ntip(qv),
+    which = 'right', cex = 0.4, adj = c(-0.8, -0.2),
+    frame = 'n', font = 2
+    )
+  mtext("(b)  ", side = 3, adj = 1, line = -2, font = 2)
+  dev.off()
 }

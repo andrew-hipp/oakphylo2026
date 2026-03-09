@@ -53,7 +53,7 @@ if(globalDoPDF) {
 }
 
 if(globalDoPDF) {
-  pdf('out/FIG2_treesAll.pruned.clades.pdf', 8.5, 11)
+  pdf('out/FIG2_treesAll.pruned.clades.pdf', 7, 10)
   par(mar = c(1,2,2,2))
   layout(matrix(c(1,1:7), 4, 2, byrow = T))
   todo <- names(treesAll.clades) |> 

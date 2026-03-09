@@ -78,8 +78,9 @@ treeplot.Final <- treeplot.all +
       legend.position = 'bottom'
   )
 if(globalDoPDF) {
-  ggsave(paste('out/ordinations/treeordinationFinal_v2_mx', maxBoots, 'bt.pdf', sep = ''), 
-          plot=treeplot.Final)
+  ggsave(
+    paste('out/figures/FIGxx_treeordinationFinal_v2_mx', maxBoots, 'bt.pdf', sep = ''),
+    plot=treeplot.Final, width = 7, height = 7)
 }
 
 ## Plotting individual ordinations, symbols by clades
@@ -99,7 +100,7 @@ for(i in names(treeplot.clades)) {
   #    legend.position = 'bottom'
   # )
 if(globalDoPDF) {
-  ggsave(paste('out/ordinations/treeordinationSupplement_', i, '.pdf', sep = ''), 
+  ggsave(paste('out/figures/FIGSxx_treeordinationSupplement_', i, '.pdf', sep = ''), 
         plot=treeplot.clades[[i]])
 }
 }
@@ -192,13 +193,20 @@ for(i in do) {
     }
 
 if(globalDoPDF) {
-pdf('out/trees/treesConsensus.pdf', 8.5, 11)
-for(i in names(trees.con)) {
-  plot(
-    trees.con[[i]], 
-    cex = ifelse(length(trees.con[[i]]$tip.label) > 100, 0.1, 0.7)
-    ) # close plot
-  title(i, line = -1)
-}
-dev.off()
+  pdf('out/trees/treesConsensus.pdf', 8.5, 11)
+  for(i in names(trees.con)) {
+    plot(
+      trees.con[[i]], 
+      cex = ifelse(length(trees.con[[i]]$tip.label) > 100, 0.1, 0.7)
+      ) # close plot
+    title(i, line = -1)
+  }
+  dev.off()
+
+  pdf('out/figures/FIG4_allConsensus.pdf', 3.5, 10)
+  qCons <- trees.con$allBoots
+  qCons$tip.label <- gsub('Quercus ', '', qCons$tip.label)
+  plot(qCons, cex = 0.6)
+  ## even out branch lengths, add clade bars
+  dev.off()
 }
