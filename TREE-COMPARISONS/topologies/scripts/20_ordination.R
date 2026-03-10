@@ -40,6 +40,11 @@ trees.points$TreeType[grep('.bt', row.names(trees.points), invert = T)] <- 'ML'
 trees.points$analysis <- 
   sapply(strsplit(row.names(trees.points), '.', fixed = T),'[',2)
 
+trees.points$analysis <- gsub('_raxml', '', trees.points$analysis)
+trees.points$analysis <- gsub('ref_', 'refRAD_', trees.points$analysis)
+trees.points$analysis <- gsub('Qalba', 'alba', trees.points$analysis)
+trees.points$analysis <- gsub('Qvar', 'variabilis', trees.points$analysis)
+
 trees.points$RobType <- NA
 trees.points$RobType[
   which(trees.points$TreeType == 'ML' & monophylyMat[, 'roburoids_albae'])
@@ -67,7 +72,9 @@ treeplot.Final <- treeplot.all +
   scale_fill_manual(values = cbbPalette) + 
   # geom_label_repel(label = row.names(trees.points)) +
   geom_label_repel(
-    size = 2, alpha = 0.8, label.r = 0.01,
+    size = 2, 
+    # alpha = 0.8, 
+    label.r = 0.01,
     box.padding = 0.1, point.padding = 15, 
     aes(label = ifelse(TreeType == 'ML', analysis, NA)
     )
@@ -75,11 +82,13 @@ treeplot.Final <- treeplot.all +
   theme(
       # legend.position = 'inside',
       # legend.position.inside = c(0.3,0.9)
-      legend.position = 'bottom'
-  )
+      # legend.position = 'bottom'
+      legend.position = 'none'
+  ) 
+
 if(globalDoPDF) {
   ggsave(
-    paste('out/figures/FIGxx_treeordinationFinal_v2_mx', maxBoots, 'bt.pdf', sep = ''),
+    paste('out/figures/FIG6_treeordinationFinal_v2_mx', maxBoots, 'bt.pdf', sep = ''),
     plot=treeplot.Final, width = 7, height = 7)
 }
 
