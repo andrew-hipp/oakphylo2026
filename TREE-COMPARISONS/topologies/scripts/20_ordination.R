@@ -203,10 +203,17 @@ if(globalDoPDF) {
   }
   dev.off()
 
-  pdf('out/figures/FIG4_allConsensus.pdf', 3.5, 10)
+  temp_qCons <- plot(qCons, use.edge.length = F, node.depth = 2, cex = 0.6, plot = F)
+  
+  pdf('out/figures/FIG4_allConsensus.pdf', 7, 5.5)
   qCons <- trees.con$allBoots
   qCons$tip.label <- gsub('Quercus ', '', qCons$tip.label)
-  plot(qCons, cex = 0.6)
-  ## even out branch lengths, add clade bars
+  plot(qCons, use.edge.length = F, node.depth = 2, cex = 0.4, 
+      x.lim = temp_qCons$x.lim * 1.5)
+  cladelabels(text = c('Cyclobalanopsis','Cerris','Ilex',
+                      'Lobatae','Protobalanus','Ponticae','Virentes','Quercus'),
+              node = c(84,81,79,74,73,72,71,66),
+              orientation = 'horizontal', cex = 0.8)
+  cladelabels(text = 'Roburoids', node = 68, cex = 0.6)
   dev.off()
 }
