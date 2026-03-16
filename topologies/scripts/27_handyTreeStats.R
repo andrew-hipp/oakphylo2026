@@ -5,8 +5,17 @@
 ### refRAD = refRAD 
 
 bootRows <- list(
+    reseq = intersect(grep('reseq', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
+    simRAD = intersect(grep('simRAD', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
     reSim = intersect(grep('simRAD|reseq', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
-    refRAD = intersect(grep('refRAD', row.names(monophylyMat)), grep('bt', row.names(monophylyMat)))
+    refRAD = intersect(grep('refRAD', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
+    ref_alba = intersect(grep('ref_alba', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
+    ref_glauca = intersect(grep('ref_glauca', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
+    ref_longispica = intersect(grep('ref_longispica', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
+    ref_rubra = intersect(grep('ref_rubra', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
+    ref_tomentella = intersect(grep('ref_tomentella', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
+    ref_variablis = intersect(grep('ref_variablis', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
+    ref_virginiana = intersect(grep('ref_virginiana', row.names(monophylyMat)), grep('bt', row.names(monophylyMat)))
 )
 
 
