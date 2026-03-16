@@ -109,10 +109,16 @@ for(i in names(treeplot.clades)) {
   #    legend.position = 'bottom'
   # )
 if(globalDoPDF) {
-  ggsave(paste('out/figures/FIGSxx_treeordinationSupplement_', i, '.pdf', sep = ''), 
+  ggsave(paste('out/ordinations/treeordinationSupplement_', i, '.pdf', sep = ''), 
         plot=treeplot.clades[[i]])
+  if(i == "Quercus_MX") {
+    ggsave(paste('out/figures/FIGS3_treeordinationSupplement_', i, '.pdf', sep = ''), 
+      plot=treeplot.clades[[i]])
+  }
 }
 }
+
+
 
 plotpch.refRAD <- c(
   ref_alba_raxml = 'A', 
