@@ -36,6 +36,12 @@ trees.con <- list(
   refRAD_alb_var = consensus(unlist(boots$refRAD[c('ref_alba_raxml', 'rev_variabilis_raxml')], recursive = FALSE), rooted = T),
   simRAD_allBoots = consensus(unlist(boots$simRAD, recursive = FALSE), rooted = T),
   reSeq_allBoots = consensus(unlist(boots$reSeq, recursive = FALSE), rooted = T),
+  reSeq_simRAD_allBoots = 
+    consensus(
+        c(unlist(boots$reSeq, recursive = FALSE),
+        unlist(boots$simRAD, recursive = FALSE)), 
+        rooted = T
+        ),
   refRAD_ACLT = consensus(treesAll.pruned[c(
     "refRAD.ref_alba_raxml",
     "refRAD.ref_longispica_raxml",
@@ -85,3 +91,12 @@ if(globalDoPDF) {
   cladelabels(text = 'Roburoids', node = 68, cex = 0.6)
   dev.off()
 }
+
+trees.dist.rf <- RobinsonFoulds(treesAll.pruned) |> 
+    as.matrix()
+dimnames(trees.dist.rf) <- list(
+    names(treesAll.pruned),
+    names(treesAll.pruned))
+
+### ARE ANY RESEQ BOOTS the same as any simRAD trees? 
+### the reseq ML trees are not the same as any non-reseq boot or tree
