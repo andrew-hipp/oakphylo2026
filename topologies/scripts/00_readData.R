@@ -19,7 +19,7 @@ trees <- list(
     read.tree(grep('bipartitions.', dir(x, full = T), fixed = T, value = T))})
 ) # close list
 
-names(trees$refRAD) <- dir('data/REF_raxml')
+names(trees$refRAD) <- dir('data/ref_RAxML_snps')
 names(trees$simRAD) <- dir('data/simulated_RAD')
 names(trees$reSeq) <- dir('data/ReSeq_phylos')
 
