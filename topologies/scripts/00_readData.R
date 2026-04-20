@@ -9,7 +9,9 @@ library(phytools)
 ## reading data
 
 trees <- list(
-  refRAD = lapply(dir('data/REF_raxml', full = T), function(x) {
+  # refRAD = lapply(dir('data/REF_raxml', full = T), function(x) {
+  #   read.tree(grep('bipartitions.', dir(x, full = T), fixed = T, value = T))}),
+  refRAD = lapply(dir('data/ref_RAxML_snps', full = T), function(x) {
     read.tree(grep('bipartitions.', dir(x, full = T), fixed = T, value = T))}),
   simRAD = lapply(dir('data/simulated_RAD', full = T), function(x) {
     read.tree(grep('bipartitions.', dir(x, full = T), fixed = T, value = T))}),
@@ -22,7 +24,9 @@ names(trees$simRAD) <- dir('data/simulated_RAD')
 names(trees$reSeq) <- dir('data/ReSeq_phylos')
 
 boots <- list(
-  refRAD = lapply(dir('data/REF_raxml', full = T), function(x) {
+  # refRAD = lapply(dir('data/REF_raxml', full = T), function(x) {
+  #   read.tree(grep('bootstrap', dir(x, full = T), fixed = T, value = T))}),
+  refRAD = lapply(dir('data/ref_RAxML_snps', full = T), function(x) {
     read.tree(grep('bootstrap', dir(x, full = T), fixed = T, value = T))}),
   simRAD = lapply(dir('data/simulated_RAD', full = T), function(x) {
     read.tree(grep('bootstrap', dir(x, full = T), fixed = T, value = T))}),
@@ -30,7 +34,7 @@ boots <- list(
     read.tree(grep('bootstrap', dir(x, full = T), fixed = T, value = T))})
 )
 
-names(boots$refRAD) <- dir('data/REF_raxml')
+names(boots$refRAD) <- dir('data/ref_RAxML_snps')
 names(boots$simRAD) <- dir('data/simulated_RAD')
 names(boots$reSeq) <- dir('data/ReSeq_phylos')
 
