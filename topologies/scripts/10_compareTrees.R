@@ -55,7 +55,7 @@ if(globalDoPDF) {
 if(globalDoPDF) {
   pdf('out/figures/FIG2_treesAll.pruned.clades.pdf', 7, 10)
   par(mar = c(1,2,2,2))
-  layout(matrix(c(1,1:7), 4, 2, byrow = T))
+  layout(matrix(c(1:8), 4, 2, byrow = T))
   todo <- names(treesAll.clades) |> 
     grep (patt = 'bt', invert = T, value = T) |> 
     grep(patt = 'refRAD', value = T)
@@ -71,7 +71,7 @@ if(globalDoPDF) {
         thisLetter = letters[counter],
         epithet = strsplit(i, '_')[[1]][2])
     )
-    if(i != "refRAD.ref_alba_raxml") {
+    if(i != "refRAD.de_novo") {
       tr <- drop.tip(treesAll.clades[[i]], c(
         "Cyclobalanopsis", "Ilex", "Cerris", "Lobatae"
       ))

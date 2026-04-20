@@ -77,11 +77,11 @@ if(globalDoPDF) {
   }
   dev.off()
 
+  qCons <- trees.con$allBoots
+  qCons$tip.label <- gsub('Quercus ', '', qCons$tip.label)
   temp_qCons <- plot(qCons, use.edge.length = F, node.depth = 2, cex = 0.6, plot = F)
   
   pdf('out/figures/FIG4_allConsensus.pdf', 7, 5.5)
-  qCons <- trees.con$allBoots
-  qCons$tip.label <- gsub('Quercus ', '', qCons$tip.label)
   plot(qCons, use.edge.length = F, node.depth = 2, cex = 0.4, 
       x.lim = temp_qCons$x.lim * 1.5)
   cladelabels(text = c('Cyclobalanopsis','Cerris','Ilex',

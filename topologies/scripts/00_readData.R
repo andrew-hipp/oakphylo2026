@@ -178,13 +178,35 @@ if(globalDoPDF) {
     which = 'left', cex = 0.5, adj = c(1.5, -0.2), 
     frame = 'n', font = 2
     )
+  nodelabels.cophylo(
+    node = c(
+      getMRCA(qa, c('griffithii', 'aliena')),
+      getMRCA(qa, c('fleuryi', 'hui'))
+    ),
+    which = 'left',
+    pch = 19,
+    col = 'red',
+    cex = 0.75
+  )
   mtext("  (a)", side = 3, adj = 0, line = -2, font = 2)
+
   nodelabels.cophylo(
     text = qv$node.label,
     node = 1:qv$Nnode + Ntip(qv),
     which = 'right', cex = 0.4, adj = c(-0.8, -0.2),
     frame = 'n', font = 2
     )
+  nodelabels.cophylo(
+    node = c(
+      getMRCA(qa, c('griffithii', 'dentata')),
+      getMRCA(qa, c('edithiae', 'hui'))
+    ),
+    which = 'right',
+    pch = 19,
+    col = 'red',
+    cex = 0.75
+  )
   mtext("(b)  ", side = 3, adj = 1, line = -2, font = 2)
+
   dev.off()
 }
