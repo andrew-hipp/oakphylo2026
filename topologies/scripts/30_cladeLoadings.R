@@ -2,15 +2,17 @@
 ## fold this into ordination when I reorganize
 ## right now depends on matrix from 10_compareTrees.R + ord objects from 05_ordination.R
 
+# stop('**** problem in clade loadings since I did the global refRAD --> empiricalRAD change')
+
 library(vegan)
 
 trees.points2 <- list(
     all = cmdscale(trees.dist, 2),
-    refRAD = cmdscale(
+    empiricalRAD = cmdscale(
         d = as.dist(
             as.matrix(trees.dist)[
-                grep('refRAD', names(treesAll)), 
-                grep('refRAD', names(treesAll))]), 
+                grep('empiricalRAD', names(treesAll)), 
+                grep('empiricalRAD', names(treesAll))]), 
         k = 2),
     simRAD = cmdscale(
         d = as.dist(

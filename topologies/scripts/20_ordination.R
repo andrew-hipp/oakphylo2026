@@ -28,7 +28,7 @@ trees.points <- cmdscale(trees.dist, 2) |>
   as.data.frame()
 names(trees.points) <- c('mds1', 'mds2')
 DataSet <- c(
-    refRAD = "Reference-guided RADseq (empirical)",
+    empiricalRAD = "Reference-guided RADseq (empirical)",
     reSeq = "Aligned reference genomes and reseq data",
     simRAD = "Simulated RADseq (from aligned reference and reseq)"
 )
@@ -41,7 +41,7 @@ trees.points$analysis <-
   sapply(strsplit(row.names(trees.points), '.', fixed = T),'[',2)
 
 trees.points$analysis <- gsub('_raxml', '', trees.points$analysis)
-trees.points$analysis <- gsub('ref_', 'refRAD_', trees.points$analysis)
+trees.points$analysis <- gsub('ref_', 'empiricalRAD_', trees.points$analysis)
 trees.points$analysis <- gsub('Qalba', 'alba', trees.points$analysis)
 trees.points$analysis <- gsub('Qvar', 'variabilis', trees.points$analysis)
 
@@ -88,7 +88,7 @@ treeplot.Final <- treeplot.all +
 
 if(globalDoPDF) {
   ggsave(
-    paste('out/figures/FIG6_treeordinationFinal_v2_mx', maxBoots, 'bt.pdf', sep = ''),
+    paste('out/figures/FIG7_treeordinationFinal_v2_mx', maxBoots, 'bt.pdf', sep = ''),
     plot=treeplot.Final, width = 7, height = 7)
 }
 
@@ -122,7 +122,7 @@ if(globalDoPDF) {
 
 
 
-plotpch.refRAD <- c(
+plotpch.empiricalRAD <- c(
   ref_alba_raxml = 'A', 
   ref_glauca_raxml = 'G',
   ref_longispica_raxml = 'L',
@@ -133,18 +133,18 @@ plotpch.refRAD <- c(
   de_novo = 'D'
   )
 
-treeplot.refRAD <- 
-  ggplot(trees.points[grep('refRAD', row.names(trees.points)), ], 
+treeplot.empiricalRAD <- 
+  ggplot(trees.points[grep('empiricalRAD', row.names(trees.points)), ], 
     aes(x = mds1, y = mds2, color = analysis)
     )
-treeplot.refRAD <- treeplot.refRAD + 
+treeplot.empiricalRAD <- treeplot.empiricalRAD + 
   geom_point(
-    size = plotsize[trees.points[grep('refRAD', row.names(trees.points)), 'TreeType']],
-    pch = plotpch.refRAD[trees.points[grep('refRAD', row.names(trees.points)), 'analysis']]
+    size = plotsize[trees.points[grep('empiricalRAD', row.names(trees.points)), 'TreeType']],
+    pch = plotpch.empiricalRAD[trees.points[grep('empiricalRAD', row.names(trees.points)), 'analysis']]
     ) + 
   scale_fill_manual(values = cbbPalette) + 
   theme(legend.position = 'bottom')
 if(globalDoPDF) {
-ggsave(paste('out/ordinations/treeordination_refRAD_mx', maxBoots, 'bt.pdf', sep = ''), plot=treeplot.refRAD)
+ggsave(paste('out/ordinations/treeordination_empiricalRAD_mx', maxBoots, 'bt.pdf', sep = ''), plot=treeplot.empiricalRAD)
 }
 

@@ -1,9 +1,9 @@
 ## inspecting treesAll -- cophyloplots and strict consensuses
 attach(treesAll.pruned)
 treesAll.cophylos <- list(
-  simRADalb_refalb = cophylo(simRAD.simRAD_Qalba_raxml, refRAD.ref_alba_raxml),
+  simRADalb_refalb = cophylo(simRAD.simRAD_Qalba_raxml, empiricalRAD.ref_alba_raxml),
   simRADalb_reseqalb = cophylo(simRAD.simRAD_Qalba_raxml, reSeq.reseq_Qalba),
-  reseqalb_refalb = cophylo(reSeq.reseq_Qalba, refRAD.ref_alba_raxml),
+  reseqalb_refalb = cophylo(reSeq.reseq_Qalba, empiricalRAD.ref_alba_raxml),
   simRADalb_simRADvar = cophylo(simRAD.simRAD_Qalba_raxml, simRAD.simRAD_Qvar_raxml),
   reseqalb_reseqvar = cophylo(reSeq.reseq_Qalba, reSeq.reseq_Qvar)
 )
@@ -32,8 +32,8 @@ dev.off()
 
 ## plot consensus trees
 trees.con <- list(
-  refRAD_allBoots = consensus(unlist(boots$refRAD, recursive = FALSE), rooted = T),
-  refRAD_alb_var = consensus(unlist(boots$refRAD[c('ref_alba_raxml', 'rev_variabilis_raxml')], recursive = FALSE), rooted = T),
+  empiricalRAD_allBoots = consensus(unlist(boots$empiricalRAD, recursive = FALSE), rooted = T),
+  empiricalRAD_alb_var = consensus(unlist(boots$empiricalRAD[c('ref_alba_raxml', 'rev_variabilis_raxml')], recursive = FALSE), rooted = T),
   simRAD_allBoots = consensus(unlist(boots$simRAD, recursive = FALSE), rooted = T),
   reSeq_allBoots = consensus(unlist(boots$reSeq, recursive = FALSE), rooted = T),
   reSeq_simRAD_allBoots = 
@@ -42,16 +42,16 @@ trees.con <- list(
         unlist(boots$simRAD, recursive = FALSE)), 
         rooted = T
         ),
-  refRAD_ACLT = consensus(treesAll.pruned[c(
-    "refRAD.ref_alba_raxml",
-    "refRAD.ref_longispica_raxml",
-    "refRAD.ref_tomentella_raxml", 
-    "refRAD.ref_variablis_raxml")], 
+  empiricalRAD_ACLT = consensus(treesAll.pruned[c(
+    "empiricalRAD.ref_alba_raxml",
+    "empiricalRAD.ref_longispica_raxml",
+    "empiricalRAD.ref_tomentella_raxml", 
+    "empiricalRAD.ref_variablis_raxml")], 
     rooted = TRUE),
-  refRAD_RGV = consensus(treesAll.pruned[c(
-    "refRAD.ref_glauca_raxml",
-    "refRAD.ref_rubra_raxml",
-    "refRAD.ref_virginiana_raxml")],
+  empiricalRAD_RGV = consensus(treesAll.pruned[c(
+    "empiricalRAD.ref_glauca_raxml",
+    "empiricalRAD.ref_rubra_raxml",
+    "empiricalRAD.ref_virginiana_raxml")],
     rooted = TRUE),
   simRAD = consensus(treesAll.pruned[c(
     "simRAD.simRAD_Qalba_raxml",

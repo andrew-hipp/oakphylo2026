@@ -25,7 +25,7 @@ dat_hilo <- lapply(dat_indVects, hilo)
 for(i in names(dat_hilo)){
     for(j in names(dat_hilo[[i]])){
         names(dat_hilo[[i]][[j]]) <- (
-            dat_meta$refRAD[
+            dat_meta$empiricalRAD[
                 names(dat_hilo[[i]][[j]]),
                 c('TAXA-Current_determination', 'SPMCODE')
                 ] |> 

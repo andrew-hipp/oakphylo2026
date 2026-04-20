@@ -9,9 +9,9 @@ library(phytools)
 ## reading data
 
 trees <- list(
-  # refRAD = lapply(dir('data/REF_raxml', full = T), function(x) {
+  # empiricalRAD = lapply(dir('data/REF_raxml', full = T), function(x) {
   #   read.tree(grep('bipartitions.', dir(x, full = T), fixed = T, value = T))}),
-  refRAD = lapply(dir('data/ref_RAxML_snps', full = T), function(x) {
+  empiricalRAD = lapply(dir('data/ref_RAxML_snps', full = T), function(x) {
     read.tree(grep('bipartitions.', dir(x, full = T), fixed = T, value = T))}),
   simRAD = lapply(dir('data/simulated_RAD', full = T), function(x) {
     read.tree(grep('bipartitions.', dir(x, full = T), fixed = T, value = T))}),
@@ -19,14 +19,14 @@ trees <- list(
     read.tree(grep('bipartitions.', dir(x, full = T), fixed = T, value = T))})
 ) # close list
 
-names(trees$refRAD) <- dir('data/ref_RAxML_snps')
+names(trees$empiricalRAD) <- dir('data/ref_RAxML_snps')
 names(trees$simRAD) <- dir('data/simulated_RAD')
 names(trees$reSeq) <- dir('data/ReSeq_phylos')
 
 boots <- list(
-  # refRAD = lapply(dir('data/REF_raxml', full = T), function(x) {
+  # empiricalRAD = lapply(dir('data/REF_raxml', full = T), function(x) {
   #   read.tree(grep('bootstrap', dir(x, full = T), fixed = T, value = T))}),
-  refRAD = lapply(dir('data/ref_RAxML_snps', full = T), function(x) {
+  empiricalRAD = lapply(dir('data/ref_RAxML_snps', full = T), function(x) {
     read.tree(grep('bootstrap', dir(x, full = T), fixed = T, value = T))}),
   simRAD = lapply(dir('data/simulated_RAD', full = T), function(x) {
     read.tree(grep('bootstrap', dir(x, full = T), fixed = T, value = T))}),
@@ -34,18 +34,18 @@ boots <- list(
     read.tree(grep('bootstrap', dir(x, full = T), fixed = T, value = T))})
 )
 
-names(boots$refRAD) <- dir('data/ref_RAxML_snps')
+names(boots$empiricalRAD) <- dir('data/ref_RAxML_snps')
 names(boots$simRAD) <- dir('data/simulated_RAD')
 names(boots$reSeq) <- dir('data/ReSeq_phylos')
 
 ## futzing with metadata
 
 dat_meta <- list(
-  refRAD = read.xlsx('data/OakSpmTableExtract-322SingleTipPhylo-20250516.xlsx', 1),
+  empiricalRAD = read.xlsx('data/OakSpmTableExtract-322SingleTipPhylo-20250516.xlsx', 1),
   simRAD = read.xlsx('data/Oak_wgs_sampling.xlsx', rowNames = T)
 )
-dat_meta$refRAD <- dat_meta$refRAD[!is.na(dat_meta$refRAD[[1]]), ]
-row.names(dat_meta$refRAD) <- dat_meta$refRAD$'RAD-SEQ-FLORAGENEX'
+dat_meta$empiricalRAD <- dat_meta$empiricalRAD[!is.na(dat_meta$empiricalRAD[[1]]), ]
+row.names(dat_meta$empiricalRAD) <- dat_meta$empiricalRAD$'RAD-SEQ-FLORAGENEX'
 
 ## relabelling trees (labelled bipartition trees)
 
@@ -53,10 +53,10 @@ for(i in names(trees)) {
   message(paste('doing',i))
   # write.tree(trees[[i]], paste('out/tempTree_', i, '.tre', sep = ''))
   trees[[i]] <- lapply(trees[[i]], function(x) {
-    if(i == 'refRAD') {
+    if(i == 'empiricalRAD') {
       x$tip.label <- dat_meta[[i]][x$tip.label, c('TAXA-Current_determination', 'SPMCODE')] |> apply(1, paste, collapse = '|') |> as.character()
       og <- grep('Castan', x$tip.label)
-    } # close if refRAD
+    } # close if empiricalRAD
     if(i == 'simRAD') {
       x$tip.label <- gsub('_randbase', '', x$tip.label, fixed = T)
       x$tip.label <- dat_meta[[i]][x$tip.label, 'Organism.Name']
@@ -93,10 +93,10 @@ for(i in names(boots)) {
   for(j in names(boots[[i]])) {
     message(paste('doing',i,'of',j))
     boots[[i]][[j]] <- lapply(boots[[i]][[j]], function(x) {
-      if(i == 'refRAD') {
+      if(i == 'empiricalRAD') {
         x$tip.label <- dat_meta[[i]][x$tip.label, c('TAXA-Current_determination', 'SPMCODE')] |> apply(1, paste, collapse = '|') |> as.character()
         og <- grep('Castan', x$tip.label)
-      } # close if refRAD
+      } # close if empiricalRAD
       if(i == 'simRAD') {
         x$tip.label <- gsub('_randbase', '', x$tip.label, fixed = T)
         x$tip.label <- dat_meta[[i]][x$tip.label, 'Organism.Name']

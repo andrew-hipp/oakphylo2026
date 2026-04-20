@@ -2,13 +2,13 @@
 ## all on bootstraps only
 
 ### reSim = reseq + simRAD
-### refRAD = refRAD 
+### empiricalRAD = empiricalRAD 
 
 bootRows <- list(
     reseq = intersect(grep('reseq', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
     simRAD = intersect(grep('simRAD', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
     reSim = intersect(grep('simRAD|reseq', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
-    refRAD = intersect(grep('refRAD', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
+    empiricalRAD = intersect(grep('empiricalRAD', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
     ref_alba = intersect(grep('ref_alba', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
     ref_glauca = intersect(grep('ref_glauca', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
     ref_longispica = intersect(grep('ref_longispica', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
