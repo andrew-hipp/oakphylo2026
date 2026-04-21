@@ -1,9 +1,5 @@
 # Ordinations of trees
 
-### STILL TO DO
-### 1. make nice legends
-### 2. add repel-labels for the ML trees (11)
-
 library(MASS)
 
 library(TreeDist)
@@ -12,6 +8,7 @@ library(phytools)
 
 library(ggplot2)
 library(ggrepel)
+
 
 ## plotting parameters and distance
 cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
@@ -28,9 +25,9 @@ trees.points <- cmdscale(trees.dist, 2) |>
   as.data.frame()
 names(trees.points) <- c('mds1', 'mds2')
 DataSet <- c(
-    empiricalRAD = "Reference-guided RADseq (empirical)",
-    reSeq = "Aligned reference genomes and reseq data",
-    simRAD = "Simulated RADseq (from aligned reference and reseq)"
+    empiricalRAD = "Empirical RADseq",
+    reSeq = "Pseudoreference genomes",
+    simRAD = "Simulated RADseq"
 )
 
 trees.points$DataSet <- 

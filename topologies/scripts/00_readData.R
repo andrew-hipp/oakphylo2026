@@ -18,6 +18,13 @@ trees <- list(
   reSeq = lapply(dir('data/ReSeq_phylos', full = T), function(x){
     read.tree(grep('bipartitions.', dir(x, full = T), fixed = T, value = T))})
 ) # close list
+tr2020 <- read.tree('data/tr.singletons.correlated.1.taxaGrepCrown.tre')
+tr2020$tip.label <- 
+  tr2020$tip.label |> 
+  strsplit(split = '|', fixed = T) |> 
+  sapply(FUN = '[', 1) |> 
+  gsub(patt = '_', replace = ' ')
+tr2020 <- drop.tip(tr2020, which(duplicated(tr2020$tip.label)))
 
 names(trees$empiricalRAD) <- dir('data/ref_RAxML_snps')
 names(trees$simRAD) <- dir('data/simulated_RAD')
@@ -130,7 +137,9 @@ for(i in names(treesBoots)) {
 
 treesBoots <- unlist(treesBoots, recursive = F, use.names = T)
 
-treesAll <- c(treesML, treesBoots)
+class(treesML) <- class(treesBoots) <- 'multiPhylo' 
+treesAll <- c(tr2020, treesML, treesBoots)
+names(treesAll)[1] <- 'empiricalRAD.OakPhylo2020'
 
 treesAll.pruned <- lapply(treesAll, function(x) {
     temp <- strsplit(x$tip.label, '|', fixed = T)

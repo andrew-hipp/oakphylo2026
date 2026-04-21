@@ -31,3 +31,15 @@ quercusMonophyletic_bundled <-
             '[', 2),
             list)
 sapply(quercusMonophyletic_bundled, sum)
+
+
+## added 2026-04-21 -- cut from 20_ordinations, moved into 00_readData
+treesAll.pruned_orig <- treesAll.pruned
+class(treesAll.pruned) <- 'multiPhylo'
+treesAll.pruned <- c(tr2020, treesAll.pruned)
+allNames <- intersect(
+  treesAll.pruned[[1]]$tip.label,
+  treesAll.pruned[[2]]$tip.label)
+treesAll.pruned <- lapply(treesAll.pruned, keep.tip, allNames)
+names(treesAll.pruned)[1] <- 'empiricalRAD.OakRAD2020'
+# treesAll.pruned <- treesAll.pruned_orig
