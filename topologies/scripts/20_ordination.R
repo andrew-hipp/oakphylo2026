@@ -11,7 +11,7 @@ library(ggrepel)
 
 
 ## plotting parameters and distance
-cbbPalette <- c("#E69F00", "#56B4E9", "#D55E00", "#F0E442", "#0072B2", "#000000", "#009E73")
+cbbPalette <- c("#0072B2", "#000000", "#D55E50", "#009E73", "#E69F00", "#56B4E9", "#F0E442")
 plotalpha <- c(ML = 1, Bootstrap = 0.5)
 plotpch.all <- 
   c(ML_robalb = 19, Bootstrap_robalb = 1,
@@ -66,7 +66,7 @@ treeplot.Final <- treeplot.all +
   geom_point(size = plotsize[trees.points$TreeType],
             # alpha = plotalpha[trees.points$TreeType],
             pch = plotpch.all[trees.points$RobType]) + 
-  scale_fill_manual(values = cbbPalette) + 
+  scale_color_manual(values = cbbPalette) + 
   # geom_label_repel(label = row.names(trees.points)) +
   geom_label_repel(
     size = 2, 
@@ -101,7 +101,7 @@ for(i in names(treeplot.clades)) {
             # alpha = plotalpha[trees.points$TreeType],
             aes(shape = .data[[i]])
    ) + 
-  scale_fill_manual(values = cbbPalette) 
+  scale_color_manual(values = cbbPalette) 
   # theme(
   #    legend.position = 'bottom'
   # )
