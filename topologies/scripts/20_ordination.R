@@ -11,7 +11,7 @@ library(ggrepel)
 
 
 ## plotting parameters and distance
-cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+cbbPalette <- c("#E69F00", "#56B4E9", "#D55E00", "#F0E442", "#0072B2", "#000000", "#009E73")
 plotalpha <- c(ML = 1, Bootstrap = 0.5)
 plotpch.all <- 
   c(ML_robalb = 19, Bootstrap_robalb = 1,
