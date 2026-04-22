@@ -189,7 +189,8 @@ if(globalDoPDF) {
     )
   nodelabels.cophylo(
     node = c(
-      getMRCA(qa, c('griffithii', 'aliena')),
+      getMRCA(qa, c('serrata', 'aliena')), # for whatever reason, this actually does the griffithii-serrata node
+      # getMRCA(qa, c('griffithii', 'serrata')),
       getMRCA(qa, c('fleuryi', 'hui'))
     ),
     which = 'left',
@@ -207,8 +208,8 @@ if(globalDoPDF) {
     )
   nodelabels.cophylo(
     node = c(
-      getMRCA(qa, c('griffithii', 'dentata')),
-      getMRCA(qa, c('edithiae', 'hui'))
+      getMRCA(qv, c('griffithii', 'dentata')),
+      getMRCA(qv, c('edithiae', 'hui'))
     ),
     which = 'right',
     pch = 19,

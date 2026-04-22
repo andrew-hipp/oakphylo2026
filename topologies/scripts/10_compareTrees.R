@@ -57,7 +57,7 @@ if(globalDoPDF) {
   par(mar = c(1,2,2,2))
   layout(matrix(c(1:8), 4, 2, byrow = T))
   todo <- names(treesAll.clades) |> 
-    grep (patt = 'bt', invert = T, value = T) |> 
+    grep (patt = 'bt|OakPhylo2020', invert = T, value = T) |> 
     grep(patt = 'empiricalRAD', value = T)
   counter = 0
   for (i in todo) {

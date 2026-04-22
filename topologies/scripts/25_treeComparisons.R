@@ -1,10 +1,10 @@
 ## inspecting treesAll -- cophyloplots and strict consensuses
 attach(treesAll.pruned)
 treesAll.cophylos <- list(
-  simRADalb_refalb = cophylo(simRAD.simRAD_Qalba_raxml, empiricalRAD.ref_alba_raxml),
-  simRADalb_reseqalb = cophylo(simRAD.simRAD_Qalba_raxml, reSeq.reseq_Qalba),
+  simRADalb_refalb = cophylo(simRAD.simRAD_Qalba_ref_snps, empiricalRAD.ref_alba_raxml),
+  simRADalb_reseqalb = cophylo(simRAD.simRAD_Qalba_ref_snps, reSeq.reseq_Qalba),
   reseqalb_refalb = cophylo(reSeq.reseq_Qalba, empiricalRAD.ref_alba_raxml),
-  simRADalb_simRADvar = cophylo(simRAD.simRAD_Qalba_raxml, simRAD.simRAD_Qvar_raxml),
+  simRADalb_simRADvar = cophylo(simRAD.simRAD_Qalba_ref_snps, simRAD.simRAD_Qvar_ref_snps),
   reseqalb_reseqvar = cophylo(reSeq.reseq_Qalba, reSeq.reseq_Qvar)
 )
 detach(treesAll.pruned)
@@ -53,12 +53,16 @@ trees.con <- list(
     "empiricalRAD.ref_rubra_raxml",
     "empiricalRAD.ref_virginiana_raxml")],
     rooted = TRUE),
-  simRAD = consensus(treesAll.pruned[c(
-    "simRAD.simRAD_Qalba_raxml",
-    "simRAD.simRAD_Qvar_raxml")],
+  simRAD = consensus(
+    treesAll.pruned[c(
+      "simRAD.simRAD_Qalba_denovo_snps",
+      "simRAD.simRAD_Qvar_denovo_snps",
+      "simRAD.simRAD_Qalba_ref_snps",
+      "simRAD.simRAD_Qvar_ref_snps")],
     rooted = TRUE),
   allBoots = consensus(treesAll.pruned, rooted = TRUE),
-  allML = consensus(treesAll.pruned[grep('bt', names(treesAll.pruned), invert = T)], rooted = TRUE)
+  allNodenovo = consensus(treesAll.pruned[-grep('de_novo', names(treesAll.pruned))]),
+  allML_noDenovo = consensus(treesAll.pruned[grep('bt|de_novo', names(treesAll.pruned), invert = T)], rooted = TRUE)
 )
 
 for(i in do) {
@@ -77,18 +81,31 @@ if(globalDoPDF) {
   }
   dev.off()
 
-  qCons <- trees.con$allBoots
+  qCons <- trees.con$allML_noDenovo
   qCons$tip.label <- gsub('Quercus ', '', qCons$tip.label)
   temp_qCons <- plot(qCons, use.edge.length = F, node.depth = 2, cex = 0.6, plot = F)
   
-  pdf('out/figures/FIG4_allConsensus.pdf', 7, 5.5)
+  pdf('out/figures/FIG4_allML-no_denovo.pdf', 7, 5.5)
   plot(qCons, use.edge.length = F, node.depth = 2, cex = 0.4, 
       x.lim = temp_qCons$x.lim * 1.5)
-  cladelabels(text = c('Cyclobalanopsis','Cerris','Ilex',
-                      'Lobatae','Protobalanus','Ponticae','Virentes','Quercus'),
-              node = c(84,81,79,74,73,72,71,66),
+  cladeNodes <- c(
+    Cyclobalanopsis = findMRCA(qCons, c('chungii', 'fleuryi')),
+    Cerris = findMRCA(qCons, c('chenii','cerris')),
+    Ilex = findMRCA(qCons, c('ilex','longispica')),
+    Lobatae = findMRCA(qCons, c('agrifolia','texana')),
+    Protobalanus = findMRCA(qCons, c('tomentella','chrysolepis')),
+    Ponticae = findMRCA(qCons, c('pontica', 'sadleriana')),
+    Quercus = findMRCA(qCons, c('lobata', 'aliena')),
+    Virentes = findMRCA(qCons, c('virginiana', 'fusiformis'))
+  )
+  
+  cladelabels(text = names(cladeNodes),
+              node = as.integer(cladeNodes),
               orientation = 'horizontal', cex = 0.8)
-  cladelabels(text = 'Roburoids', node = 68, cex = 0.6)
+  cladelabels(
+    text = 'Roburoids', 
+    node = findMRCA(qCons, c('robur', 'aliena')), 
+    cex = 0.6)
   dev.off()
 }
 
