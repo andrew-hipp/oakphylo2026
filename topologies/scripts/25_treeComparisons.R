@@ -46,7 +46,7 @@ trees.con <- list(
     "empiricalRAD.ref_alba_raxml",
     "empiricalRAD.ref_longispica_raxml",
     "empiricalRAD.ref_tomentella_raxml", 
-    "empiricalRAD.ref_variablis_raxml")], 
+    "empiricalRAD.ref_variabilis_raxml")], 
     rooted = TRUE),
   empiricalRAD_RGV = consensus(treesAll.pruned[c(
     "empiricalRAD.ref_glauca_raxml",

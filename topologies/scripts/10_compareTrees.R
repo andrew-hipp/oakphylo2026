@@ -32,13 +32,13 @@ for(i in names(treesAll.clades)) {
 }
 
 # fix up ref_variabilis, in which Protobalanus is polyphyletic
-temp <- treesAll$empiricalRAD.ref_variablis_raxml
+temp <- treesAll$empiricalRAD.ref_variabilis_raxml
 temp$tip.label <- strsplit(temp$tip.label, '|', fixed = T)
 temp$tip.label <- sapply(temp$tip.label, '[', 1) |>
   gsub(pattern = "Quercus ", replacement = "", fixed = T)
 temp <- keep.tip(temp, names(clades))
 temp$tip.label <- clades[temp$tip.label]
-treesAll.clades$empiricalRAD.ref_variablis_raxml <- temp
+treesAll.clades$empiricalRAD.ref_variabilis_raxml <- temp
 rm(temp)
 
 if(globalDoPDF) {

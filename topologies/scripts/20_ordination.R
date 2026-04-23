@@ -110,7 +110,7 @@ if(globalDoPDF) {
         plot=treeplot.clades[[i]], 
         width = 11, height = 8.5, units = 'in')
   if(i == "Quercus_MX") {
-    ggsave(paste('out/figures/FIGS3_treeordinationSupplement_', i, '.pdf', sep = ''), 
+    ggsave(paste('out/SUPPLEMENT/FIGS3_treeordinationSupplement_', i, '.pdf', sep = ''), 
       plot=treeplot.clades[[i]], 
       width = 11, height = 8.5, units = 'in')
   }
@@ -125,7 +125,7 @@ plotpch.empiricalRAD <- c(
   ref_longispica_raxml = 'L',
   ref_rubra_raxml = 'R',
   ref_tomentella_raxml = 'T',
-  ref_variablis_raxml = 'C',
+  ref_variabilis_raxml = 'C',
   ref_virginiana_raxml = 'V',
   de_novo = 'D'
   )

@@ -86,7 +86,7 @@ for(i in names(trees)) {
 if(globalDoPDF) {
   for(j in names(trees[[i]])) {
     message(paste('doing', j))
-    pdf(paste('out/trees/FIGSxx_', j, '.pdf', sep = ''), 10, 30)
+    pdf(paste('out/SUPPLEMENT/FIGSxx_', j, '.pdf', sep = ''), 10, 30)
     plot(trees[[i]][[j]], cex = 0.6)
     nodelabels(text = trees[[i]][[j]]$node.label, frame = 'n', cex = 0.5, adj = c(1.5, -.5))
     dev.off()

@@ -14,7 +14,7 @@ bootRows <- list(
     ref_longispica = intersect(grep('ref_longispica', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
     ref_rubra = intersect(grep('ref_rubra', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
     ref_tomentella = intersect(grep('ref_tomentella', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
-    ref_variablis = intersect(grep('ref_variablis', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
+    ref_variabilis = intersect(grep('ref_variablis', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
     ref_virginiana = intersect(grep('ref_virginiana', row.names(monophylyMat)), grep('bt', row.names(monophylyMat)))
 )
 

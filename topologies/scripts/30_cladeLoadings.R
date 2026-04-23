@@ -30,7 +30,7 @@ for(i in names(trees.points2)) {
         trees.points2[[i]], 
         mm[attr(trees.points2[[i]],'dimnames')[[1]], ])
     if(globalDoPDF) {
-        if(i == 'all') {pdf('out/figures/FIGS2_envfit_all.pdf')
+        if(i == 'all') {pdf('out/SUPPLEMENT/FIGS2_envfit_all.pdf')
         } else pdf(paste('out/ordinations/envfit_', i, '.pdf', sep = ''))
         plot(trees.points2[[i]])
         plot(trees.envfit[[i]])
