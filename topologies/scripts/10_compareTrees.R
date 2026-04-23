@@ -69,8 +69,13 @@ if(globalDoPDF) {
         sep = ''),
       env = list(
         thisLetter = letters[counter],
-        epithet = strsplit(i, '_')[[1]][2])
-    )
+        epithet = ifelse(
+          strsplit(i, '_')[[1]][2] == 'variablis',
+          'variabilis',
+          strsplit(i, '_')[[1]][2]
+        ) # close epithet
+    ) # close env
+    ) # close substitute
     
     if(i == "empiricalRAD.de_novo") {
       adjName <- substitute(
