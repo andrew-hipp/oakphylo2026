@@ -1,18 +1,24 @@
 # read and summarize ipyrad stats
 
-dat_ipy <- lapply(dir('data/ipyrad-stats', patt = 'ipyrad', full = T), readLines)
-names(dat_ipy) <- 
-    dir('data/ipyrad-stats', patt = 'ipyrad') |>
-    gsub(pattern = 'ipyradStats_|.txt', replacement = '')
+dat_ipy <- dat_indVects <- structure(vector('list', 2), names = c('empirical', 'simulated'))
 
-dat_indVects <- lapply(dat_ipy, function(x) {
-    start <- grep('sample_coverage', x) + 1
-    end <- grep('The number of loci for which', x) - 2
-    tab <- read.table(text = x[start:end], row.names = 1)
-    out <- tab[[1]]
-    names(out) <- row.names(tab)
-    return(out)
-})
+for(i in names(dat_ipy)) {
+    dat_ipy[[i]] <- lapply(
+        dir(paste('data/ipyrad-stats/', i, sep = ''), patt = 'ipyrad', full = T), 
+        readLines)
+    names(dat_ipy[[i]]) <- 
+        dir(paste('data/ipyrad-stats/',i, sep = ''), patt = 'ipyrad') |>
+        gsub(pattern = 'ipyradStats_|.txt', replacement = '')
+    dat_indVects[[i]] <- lapply(dat_ipy[[i]], function(x) {
+        start <- grep('sample_coverage', x) + 1
+        end <- grep('The number of loci for which', x) - 2
+        tab <- read.table(text = x[start:end], row.names = 1)
+        out <- tab[[1]]
+        names(out) <- row.names(tab)
+        return(out)})
+}
+
+
 
 hilo <- function(x, extremes = 10) {
     list(
