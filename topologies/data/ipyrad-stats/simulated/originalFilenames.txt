@@ -1,0 +1,5 @@
+originalFilenames.txt
+Qalba_simrad_denovo_stats.txt
+Qalba_simrad_stats.txt
+Qvar_simrad_denovo_stats.txt
+Qvar_simrad_stats.txt
