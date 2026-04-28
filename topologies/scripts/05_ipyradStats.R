@@ -1,6 +1,7 @@
 # read and summarize ipyrad stats
 
-dat_ipy <- dat_indVects <- structure(vector('list', 2), names = c('empirical', 'simulated'))
+dat_ipy <- dat_indVects <- dat_hilo <-
+    structure(vector('list', 2), names = c('empirical', 'simulated'))
 
 for(i in names(dat_ipy)) {
     dat_ipy[[i]] <- lapply(
@@ -27,7 +28,8 @@ hilo <- function(x, extremes = 10) {
         )
 }
 
-dat_hilo <- lapply(dat_indVects, hilo)
+
+dat_hilo <- lapply(dat_indVects$empirical, hilo)
 for(i in names(dat_hilo)){
     for(j in names(dat_hilo[[i]])){
         names(dat_hilo[[i]][[j]]) <- (
@@ -44,3 +46,7 @@ for(i in names(dat_hilo)){
 # GREPS NEEDED:
 # 'distinct alignment patterns'
 # 'Proportion of gaps'
+
+# final table columns:
+#      individual
+#      loci / dataset
