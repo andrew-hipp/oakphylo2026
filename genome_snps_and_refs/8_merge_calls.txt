@@ -1,0 +1,4 @@
+bcftools merge /N/project/oakphylo2025/SNP_calls/*.Qalba.calls.DPmin8.vcf.gz -r Qalba_Chr01,Qalba_Chr02,Qalba_Chr03,Qalba_Chr04,Qalba_Chr05,Qalba_Chr06,Qalba_Chr07,Qalba_Chr08,Qalba_Chr09,Qalba_Chr10,Qalba_Chr11,Qalba_Chr12 -Oz --threads 12 -o /N/project/oakphylo2025/SNP_calls/oakphylo2025.Qalba.merged_calls_2025_06_27.vcf.gz -g /N/project/oakphylo2025/Qalba_reference_genome/Qalba_reference_Chr.fna
+
+bcftools merge /N/project/oakphylo2025/SNP_calls/*.Qvar.calls.DPmin8.vcf.gz -r Qvar_Chr01,Qvar_Chr02,Qvar_Chr03,Qvar_Chr04,Qvar_Chr05,Qvar_Chr06,Qvar_Chr07,Qvar_Chr08,Qvar_Chr09,Qvar_Chr10,Qvar_Chr11,Qvar_Chr12 --threads 12 -Oz -o /N/project/oakphylo2025/SNP_calls/oakphylo2025.Qvar.merged_calls_2025_06_27.vcf.gz -g /N/project/oakphylo2025/Qvar_reference_genome/Qvar_reference_Chr.fna
+

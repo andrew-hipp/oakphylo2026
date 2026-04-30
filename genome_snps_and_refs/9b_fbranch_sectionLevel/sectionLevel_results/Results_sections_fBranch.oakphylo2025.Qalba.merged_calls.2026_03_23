@@ -1,0 +1,15 @@
+branch	branch_descendants	Outgroup	Cyclobalanopsis	Lobatae	Cerris	Ilex	Protobalanus	Ponticae	Virentes	Quercus
+b2	Cyclobalanopsis,Cerris,Ilex	nan	nan	nan	nan	nan	nan	nan	nan	nan
+b3	Lobatae,Protobalanus,Ponticae,Virentes,Quercus	nan	nan	nan	nan	nan	nan	nan	nan	nan
+b4	Cerris,Ilex	nan	nan	0.00948903	nan	nan	0.0131919	0.0133397	0.00742228	0.0143765
+b5	Cyclobalanopsis	nan	nan	0	nan	nan	0	0	0	0
+b6	Protobalanus,Ponticae,Virentes,Quercus	nan	0.00809553	nan	0.00379671	0.0113036	nan	nan	nan	nan
+b7	Lobatae	nan	0	nan	0	0	nan	nan	nan	nan
+b8	Cerris	nan	0	0.00499048	nan	nan	0	0	0.00588805	0.00658278
+b9	Ilex	nan	0.00869606	0	nan	nan	0.00475838	0.00332305	0	0
+b10	Ponticae,Virentes,Quercus	nan	0	0	0	0	nan	nan	nan	nan
+b11	Protobalanus	nan	0	0	0	0.00781679	nan	nan	nan	nan
+b12	Virentes,Quercus	nan	0	0	0.00300159	0	0	nan	nan	nan
+b13	Ponticae	nan	0.00181287	0	0	0.00829682	0.0311391	nan	nan	nan
+b14	Virentes	nan	0.0024285	0.0034114	0.00372365	0	0	0	nan	nan
+b15	Quercus	nan	0	0	0	0	0.00540791	0.113331	nan	nan
