@@ -9,6 +9,7 @@ bootRows <- list(
     simRAD = intersect(grep('simRAD', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
     reseq_simRAD = intersect(grep('simRAD|reseq', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
     empiricalRAD = intersect(grep('empiricalRAD', row.names(monophylyMat)), grep('bt|OakPhylo', row.names(monophylyMat))),
+    de_novo = intersect(grep('de_novo', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
     ref_alba = intersect(grep('ref_alba', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
     ref_glauca = intersect(grep('ref_glauca', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
     ref_longispica = intersect(grep('ref_longispica', row.names(monophylyMat)), grep('bt', row.names(monophylyMat))),
