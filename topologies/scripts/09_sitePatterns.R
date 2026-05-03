@@ -45,4 +45,4 @@ out_patterns <- do.call(rbind, lapply(names(datasets), function(ds) {
     )
 }))
 
-write.csv(out_patterns, 'out/raxml_site_patterns.csv', row.names = FALSE)
+write.csv(out_patterns, 'out/tables/raxml_site_patterns.csv', row.names = FALSE)
