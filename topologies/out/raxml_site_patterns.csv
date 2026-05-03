@@ -1,0 +1,5 @@
+"dataset","n","mean_sitePatterns","sd_sitePatterns"
+"simRAD",4,88915,29222.1
+"reSeq",2,1886248.5,35784.6
+"empiricalRAD_denovo",1,725253,NA
+"empiricalRAD",7,29958.9,1225.9
