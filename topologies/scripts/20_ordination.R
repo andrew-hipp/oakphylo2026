@@ -37,10 +37,13 @@ trees.points$TreeType[grep('.bt', row.names(trees.points), invert = T)] <- 'ML'
 trees.points$analysis <- 
   sapply(strsplit(row.names(trees.points), '.', fixed = T),'[',2)
 
+trees.points$analysis <- gsub('de_novo', 'ref_denovo', trees.points$analysis)
 trees.points$analysis <- gsub('_raxml', '', trees.points$analysis)
-trees.points$analysis <- gsub('ref_', 'empiricalRAD_', trees.points$analysis)
-trees.points$analysis <- gsub('Qalba', 'alba', trees.points$analysis)
-trees.points$analysis <- gsub('Qvar', 'variabilis', trees.points$analysis)
+trees.points$analysis <- gsub('ref_(?!snps)', 'empiricalRAD_', trees.points$analysis, perl = T)
+trees.points$analysis <- gsub('_Qalba_denovo_snps', '-alba_denovo', trees.points$analysis)
+trees.points$analysis <- gsub('_Qvar_denovo_snps', '-variabilis_denovo', trees.points$analysis)
+trees.points$analysis <- gsub('_Qalba_ref_snps', '-alba_alba', trees.points$analysis)
+trees.points$analysis <- gsub('_Qvar_ref_snps', '-variabilis_variabilis', trees.points$analysis)
 
 trees.points$RobType <- NA
 trees.points$RobType[
