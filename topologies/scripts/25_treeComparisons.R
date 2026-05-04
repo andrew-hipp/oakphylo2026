@@ -1,23 +1,5 @@
 ## inspecting treesAll -- cophyloplots and strict consensuses
-attach(treesAll.pruned)
-treesAll.cophylos <- list(
-  simRADalb_refalb = cophylo(simRAD.simRAD_Qalba_ref_snps, empiricalRAD.ref_alba_raxml),
-  simRADalb_reseqalb = cophylo(simRAD.simRAD_Qalba_ref_snps, reSeq.reseq_Qalba),
-  reseqalb_refalb = cophylo(reSeq.reseq_Qalba, empiricalRAD.ref_alba_raxml),
-  simRADalb_simRADvar = cophylo(simRAD.simRAD_Qalba_ref_snps, simRAD.simRAD_Qvar_ref_snps),
-  reseqalb_reseqvar = cophylo(reSeq.reseq_Qalba, reSeq.reseq_Qvar)
-)
-detach(treesAll.pruned)
 
-if(globalDoPDF) {
-pdf('out/treesAll.cophylo.pdf', 8.5, 11)
-for(i in names(treesAll.cophylos)) {
-  # par(mar = c(5.1, 4.1, 8, 2.1))
-  plot(treesAll.cophylos[[i]])
-  title(i, line = -1)
-}
-dev.off()
-}
 ## get tree islands
 trees.dist2d <- dist(as.matrix(trees.points))
 trees.islands <- Islands(trees.dist2d, 0.2)
@@ -53,6 +35,11 @@ trees.con <- list(
     "empiricalRAD.ref_rubra_raxml",
     "empiricalRAD.ref_virginiana_raxml")],
     rooted = TRUE),
+  reseq = consensus(
+    treesAll.pruned[c(
+      "reSeq.reseq_Qalba", 
+      "reSeq.reseq_Qvar")],
+    rooted = TRUE),
   simRAD = consensus(
     treesAll.pruned[c(
       "simRAD.simRAD_Qalba_denovo_snps",
@@ -65,13 +52,32 @@ trees.con <- list(
   allML_noDenovo = consensus(treesAll.pruned[grep('bt|de_novo', names(treesAll.pruned), invert = T)], rooted = TRUE)
 )
 
+attach(treesAll.pruned)
+treesAll.cophylos <- list(
+  simRADalb_refalb = cophylo(simRAD.simRAD_Qalba_ref_snps, empiricalRAD.ref_alba_raxml),
+  simRADalb_reseqalb = cophylo(simRAD.simRAD_Qalba_ref_snps, reSeq.reseq_Qalba),
+  reseqalb_refalb = cophylo(reSeq.reseq_Qalba, empiricalRAD.ref_alba_raxml),
+  simRADalb_simRADvar = cophylo(simRAD.simRAD_Qalba_ref_snps, simRAD.simRAD_Qvar_ref_snps),
+  reseqalb_reseqvar = cophylo(reSeq.reseq_Qalba, reSeq.reseq_Qvar),
+  reseqcon_simRADcon = cophylo(trees.con$reseq, trees.con$simRAD, fsize = 0.5)
+  )
+detach(treesAll.pruned)
 for(i in do) {
     trees.con[[paste('isle', i, sep = '')]] <- 
     consensus(treesAll.pruned[which(trees.islands == i)], rooted = TRUE)
     }
 
+
 if(globalDoPDF) {
-  pdf('out/trees/treesConsensus.pdf', 8.5, 11)
+pdf('out/trees/treesAll.cophylo.pdf', 8.5, 11)
+for(i in names(treesAll.cophylos)) {
+  # par(mar = c(5.1, 4.1, 8, 2.1))
+  plot(treesAll.cophylos[[i]], fsize = 0.5)
+  title(i, line = -1)
+}
+dev.off()
+
+pdf('out/trees/treesConsensus.pdf', 8.5, 11)
   for(i in names(trees.con)) {
     plot(
       trees.con[[i]], 
@@ -114,6 +120,10 @@ trees.dist.rf <- RobinsonFoulds(treesAll.pruned) |>
 dimnames(trees.dist.rf) <- list(
     names(treesAll.pruned),
     names(treesAll.pruned))
+
+if(globalDoPDF) {
+  write.csv(trees.dist.rf, 'out/tables/rfDists.csv')
+}
 
 ### ARE ANY RESEQ BOOTS the same as any simRAD trees? 
 ### the reseq ML trees are not the same as any non-reseq boot or tree
