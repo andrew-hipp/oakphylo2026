@@ -35,4 +35,4 @@ ordiStats <- structure(
     names = names(ordiStats)
 )
 
-write.csv(ordiStats,'out/tables/ordinationStats.csv')
+if(globalDoPDF) write.csv(ordiStats,'out/tables/ordinationStats.csv')

@@ -146,4 +146,4 @@ for(i in names(treesAll.clades)){
   }
 }
 
-write.csv(monophylyMat, 'out/tables/monophylyMat.csv')
+if(globalDoPDF) write.csv(monophylyMat, 'out/tables/monophylyMat.csv')

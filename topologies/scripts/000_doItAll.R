@@ -1,4 +1,4 @@
-globalDoPDF = FALSE # change this if you want to rewrite the pdfs
+globalDoPDF = FALSE # change this if you want to rewrite the pdfs and csv files
 rogues = FALSE # change this is you really want to rerun the tedious rogues analysis
 
 todo <- dir('scripts/')
