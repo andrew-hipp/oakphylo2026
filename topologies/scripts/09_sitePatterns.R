@@ -4,10 +4,12 @@
 files_rax <- dir('data', recursive = TRUE, pattern = '_info\\.', full.names = TRUE)
 
 ## dataset directory names and their short labels used elsewhere in the pipeline
-## empiricalRAD_denovo must come before empiricalRAD: the de_novo path also
-## contains ref_RAxML_snps, so the first match wins via ds_hit[1]
+## order matters: more specific patterns must come first because the first
+## match wins via ds_hit[1]. simRAD_denovo / simRAD_ref are the two simulated
+## RAD subfolders distinguished by suffix (denovo_snps vs ref_snps).
 datasets <- c(
-    simRAD              = 'simulated_RAD',
+    simRAD_denovo       = '_denovo_snps',
+    simRAD_ref          = 'ref_snps',
     reSeq               = 'ReSeq_phylos',
     empiricalRAD_denovo = 'de_novo',
     empiricalRAD        = 'ref_RAxML_snps'
@@ -45,4 +47,5 @@ out_patterns <- do.call(rbind, lapply(names(datasets), function(ds) {
     )
 }))
 
+print(out_patterns)
 if(globalDoPDF) write.csv(out_patterns, 'out/tables/raxml_site_patterns.csv', row.names = FALSE)
