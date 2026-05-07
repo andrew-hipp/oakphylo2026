@@ -142,7 +142,7 @@ for(i in names(treesAll.clades)){
   trTest <- treesAll.clades[[i]]
   for(j in names(clades_check)){
     tipsCheck <- clades_check[[j]]
-    monophylyMat[i,j] <- is.monophyletic(trTest, tipsCheck)
+    monophylyMat[i,j] <- ifelse(is.monophyletic(trTest, tipsCheck), 1, 0)
   }
 }
 
