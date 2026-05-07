@@ -1,3 +1,0 @@
-`ARCHIVE/` contains these subfolders:
-* `REF_raxml/` : trees generated from the empirical RAD-seq datasets using the GTRGAMMA model in raxml; changed to ASC_GTRGAMMA model to align with the resequencing data
-* `simulated_RAD_fullLoci/` : trees generated from the simulated RAD-seq datasets using the GTRGAMMA model in raxml; changed to ASC_GTRGAMMA model to align with the resequencing data
