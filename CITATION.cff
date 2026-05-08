@@ -57,6 +57,6 @@ keywords:
   - Phylogenomic discordance
   - Restriction-site associated DNA sequencing (RADseq)
 license: GPL-3.0
-commit: 97
-version: 0.9-4
-date-released: '2026-05-03'
+commit: 102
+version: 0.9-5
+date-released: '2026-05-08'
