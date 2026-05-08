@@ -31,7 +31,7 @@ for(i in names(treesAll.clades)) {
     treesAll.clades[[i]]$tip.label <- clades[gsub('Quercus ', '', treesAll.clades[[i]]$tip.label)]    
 }
 
-# fix up ref_variabilis, in which Protobalanus is polyphyletic
+# fix up ref_variabilis, in which Protobalanus has low support
 temp <- treesAll$empiricalRAD.ref_variabilis_raxml
 temp$tip.label <- strsplit(temp$tip.label, '|', fixed = T)
 temp$tip.label <- sapply(temp$tip.label, '[', 1) |>
