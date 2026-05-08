@@ -1,5 +1,7 @@
 # oakphylo2026
 
+[![DOI](https://zenodo.org/badge/1131918970.svg)](https://doi.org/10.5281/zenodo.20084868)
+
 Code and analyses for an oak phylogenetics book chapter (2026) comparing phylogenetic trees across three genomic datasets for *Quercus* (oak) species. The study builds on the global oak phylogeny (Hipp et al. 2020, *New Phytologist* 226: 1198–1212; Althaus et al. 2026, *PNAS* 139: e2537040123).
 
 ## Repository Structure
