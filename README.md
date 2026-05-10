@@ -21,19 +21,5 @@ Three genomic datasets are compared across analyses:
 - **simRAD** — RAD-seq data simulated with RADinitio from whole-genome sequences (RAxML trees)
 - **reSeq** — pseudoreference whole-genome resequencing (RAxML trees)
 
-## Quick Start (topologies pipeline)
-
-From an R session with the working directory set to `topologies/`:
-
-```r
-source("scripts/000_doItAll.R")   # full pipeline
-```
-
-Key flags at the top of `000_doItAll.R`:
-- `globalDoPDF = FALSE` — set `TRUE` to regenerate all PDF outputs
-- `rogues = FALSE` — set `TRUE` to rerun rogue taxa analysis (slow)
-
-See [`topologies/CLAUDE.md`](topologies/CLAUDE.md) for full pipeline documentation, script order, data layout, and conventions.
-
 ---
 *This README was updated by Claude Code (claude.ai/code) with Andrew Hipp's permission — 2026-05-03.*
