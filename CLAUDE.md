@@ -50,9 +50,22 @@ External RAxML / ipyrad runs sit between most upstream pipelines and `topologies
 - Bootstrap replicate trees use `.bt###` suffix and are kept separate from ML trees.
 - Date format in filenames: `YYYY_MM_DD` (e.g., `merged_calls_2025_06_27.vcf.gz`).
 
+## Claude Code authorship marks
+
+Any file (script, `README.md`, CSV header, etc.) **created** by Claude Code must be clearly marked as written by Claude Code in an interactive session with Andrew Hipp. Use a header comment appropriate to the file type, e.g.:
+
+- R / Python / shell: `## written by Claude Code in an interactive session with Andrew Hipp — YYYY-MM-DD`
+- Markdown: a trailing italic line, e.g. `*Written by Claude Code (claude.ai/code) in an interactive session with Andrew Hipp — YYYY-MM-DD.*`
+
+When **editing** an existing file (not creating it), add or update a note indicating that Claude Code edited the file in an interactive session with Andrew Hipp, plus an estimate of the percent of characters changed by the edit. Place near the top for code files and at the bottom for prose/markdown:
+
+- `## edited by Claude Code in an interactive session with Andrew Hipp — YYYY-MM-DD (~N% of characters changed)`
+
+If multiple Claude-Code edits accumulate, keep a single rolling note rather than stacking one per session; update the date and re-estimate the cumulative percent on each edit.
+
 ## Reference
 
 Hipp AL, Manos PS, Hahn M, Avishai M, Bodénès C, Cavender-Bares J, Crowl AA, Deng M, Denk T, Fitz-Gibbon S, et al. 2020. Genomic landscape of the global oak phylogeny. *New Phytologist* 226: 1198–1212.
 
 ---
-*This file was written by Claude Code (claude.ai/code) with Andrew Hipp's permission — 2026-05-06.*
+*Written by Claude Code (claude.ai/code) with Andrew Hipp's permission — 2026-05-06; edited by Claude Code in an interactive session with Andrew Hipp — 2026-05-14 (~25% of characters added).*

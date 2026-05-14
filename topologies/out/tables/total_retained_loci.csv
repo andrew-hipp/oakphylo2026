@@ -1,0 +1,5 @@
+"dataset","n","mean_retainedLoci","sd_retainedLoci","pct_diff_vs_ref"
+"simRAD_ref",2,8744,3487.5,"0.0%"
+"simRAD_denovo",2,8913.5,3561.7,"1.9%"
+"empiricalRAD",7,119554.7,2899.9,"0.0%"
+"empiricalRAD_denovo",1,153489,NA,"28.4%"
