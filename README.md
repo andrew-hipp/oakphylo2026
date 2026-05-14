@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/1131918970.svg)](https://doi.org/10.5281/zenodo.20084868)
 
-Code and analyses for an oak phylogenetics book chapter (2026) comparing phylogenetic trees across three genomic datasets for *Quercus* (oak) species using a previosly-published RADseq dataset (from Hipp et al. 2020, *New Phytologist* 226: 1198–1212; Althaus et al. 2026, *PNAS* 139: e2537040123), a new whole genome resequencing dataset, and a simulated RADseq dataset based on the latter.
+Code and analyses for an oak phylogenetics book chapter (2026) comparing phylogenetic trees across three genomic datasets for *Quercus* (oak) species using a previously-published RADseq dataset (from Hipp et al. 2020, *New Phytologist* 226: 1198–1212; Althaus et al. 2026, *PNAS* 139: e2537040123), a new whole genome resequencing dataset, and a simulated RADseq dataset based on the latter.
 
 ## Repository Structure
 
