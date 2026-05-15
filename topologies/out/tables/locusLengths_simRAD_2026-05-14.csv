@@ -1,0 +1,5 @@
+file,n_loci,min_length,max_length,mean_length,stdev_length
+Qvar_simrad_denovo.loci,6395,85,130,85.2306,2.409
+Qalba_simrad.loci,11210,75,409,138.8283,46.6848
+Qvar_simrad.loci,6278,37,349,136.1376,47.0685
+Qalba_simrad_denovo.loci,11432,79,130,85.2917,2.7733
