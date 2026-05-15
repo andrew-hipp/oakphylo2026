@@ -3,11 +3,10 @@
 
 cff-version: 1.2.0
 title: >-
-  Resolving the oak tree of life: comparing RADseq and whole
+  Data and code for Resolving the oak tree of life: comparing RADseq and whole
   genome resequencing methods for oak phylogenetics
 message: >-
-  Data and code for Hipp et al. 2026, in Porth et al. oak
-  genomics book
+  Book chapter in review: Hipp AL, et al. 2026 [in review]. Resolving the oak tree of life: comparing RADseq and whole genome resequencing methods for oak phylogenetics. In: Porth IM, El-Kassaby YA, The Oak Genome. CRC Press / Taylor and Francis Group. 
 type: dataset
 authors:
   - given-names: Andrew L.
@@ -27,36 +26,11 @@ authors:
     orcid: 'https://orcid.org/0000-0002-7557-9999'
 repository-code: 'https://github.com/andrew-hipp/oakphylo2026'
 abstract: >-
-  Forest trees pose numerous potential challenges to
-  phylogenomic inference. Their large effective population
-  sizes and relatively long generation times lead to deep
-  allele coalescence and consequently incomplete lineage
-  sorting (ILS), which biases inferences of divergence times
-  toward older ages and introduces gene tree discordance.
-  Deep phylogenetic divergences, reaching back into the
-  Paleocene, introduce reference-mapping biases.
-  Introgression—the movement of genes between lineages—may
-  result in different phylogenies being inferred depending
-  on which individuals are included in analysis, even if the
-  plurality of the genome favors the divergence history
-  unaffected by introgression. These factors influence
-  phylogenetic inference across the Tree of Life but are
-  particularly prevalent in forest trees. Oaks (Quercus) are
-  notable for all three influences. In addition, our
-  knowledge of the oak phylogeny is currently based strongly
-  on restriction site associated DNA sequencing (RADseq)
-  datasets published over the past decade, which may
-  introduce additional sources of uncertainty. In this
-  chapter, we analyze a 322-species RADseq dataset and
-  genome resequencing data from across the genus to address
-  sources of uncertainty in our understanding of the global
-  oak phylogeny, which we hope will serve as a model for
-  other research groups working on comparable woody plant
-  groups.
+  Dataset (in part) and code for comparison of RADseq and resequencing phylogenies in oaks.
 keywords:
   - Phylogenomic discordance
   - Restriction-site associated DNA sequencing (RADseq)
 license: GPL-3.0
-commit: 110
-version: 0.9-6
+commit: 113
+version: 0.9-7
 date-released: '2026-05-14'
