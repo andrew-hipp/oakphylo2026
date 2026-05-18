@@ -22,4 +22,4 @@ Three genomic datasets are compared across analyses:
 - **reSeq** — pseudoreference whole-genome resequencing (RAxML trees)
 
 ---
-*This README was updated by Claude Code (claude.ai/code) with Andrew Hipp's permission — 2026-05-03.*
+*This README was updated by Claude Code (claude.ai/code) with Andrew Hipp's review — 2026-05-03.*
