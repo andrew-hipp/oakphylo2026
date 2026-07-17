@@ -71,13 +71,13 @@ treeplot.loadings <- treeplot.Final +
     arrow = arrow(length = unit(0.025, 'npc'), type = 'closed'),
     colour = 'grey25', linewidth = 0.7
   ) +
-  geom_text_repel(
-    data = loadings, inherit.aes = FALSE,
-    aes(x = mds1s, y = mds2s, label = clade),
-    size = 4, fontface = 'bold', colour = 'grey15',
-    segment.colour = 'grey60', min.segment.length = 0,
-    box.padding = 0.4, point.padding = 0.2
-  ) +
+  # geom_text_repel(
+  #   data = loadings, inherit.aes = FALSE,
+  #   aes(x = mds1s, y = mds2s, label = clade),
+  #   size = 4, fontface = 'bold', colour = 'grey15',
+  #   segment.colour = 'grey60', min.segment.length = 0,
+  #   box.padding = 0.4, point.padding = 0.2
+  # ) +
   pptStyle
 
 if(globalDoPDF) {
