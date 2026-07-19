@@ -24,7 +24,7 @@ dat.sim <- data.frame(
     reference = c(
         rep('alba', length(ax) + length(ax.ref)), 
         rep('variabilis', length(vx) + length(vx.ref))),
-    type = c(
+    Dataset = c(
         rep('RAD', length(ax)), 
         rep('reseq', length(ax.ref)), 
         rep('RAD', length(vx)), 
@@ -44,6 +44,6 @@ p <- p + theme(
     legend.justification.inside = c(1, 0)     # Anchors the bottom-right of the legend box
   )
 ggsave(
-    filename='out/PPT_simrad.out.pdf', plot = p, 
+    filename='out/figures/PPT_simrad.out.pdf', plot = p, 
     width = plotdims[1], height = plotdims[2]
     )

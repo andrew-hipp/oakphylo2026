@@ -39,9 +39,9 @@ for(i in names(trees.points2)) {
 } # close i
 
 # add envfit vectors from the full dataset to the final tree plot if available
-if (exists('treeplot.Final') && !is.null(trees.envfit$all)) {
-    plot(treeplot.Final)
-    plot(trees.envfit$all, add = TRUE)
-}
+# if (exists('treeplot.Final') && !is.null(trees.envfit$all)) {
+#     plot(treeplot.Final)
+#     plot(trees.envfit$all, add = TRUE)
+# }
     
 
