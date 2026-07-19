@@ -14,9 +14,9 @@ library(ggplot2)
 library(ggrepel)
 
 if(!exists('treeplot.Final'))
-  stop('35_ordWithLoadings.R needs treeplot.Final; run 20_ordination.R first.')
+  stop('35_PPT_ordWithLoadings.R needs treeplot.Final; run 20_ordination.R first.')
 if(!exists('trees.envfit'))
-  stop('35_ordWithLoadings.R needs trees.envfit; run 30_cladeLoadings.R first.')
+  stop('35_PPT_ordWithLoadings.R needs trees.envfit; run 30_cladeLoadings.R first.')
 
 ## which clade vectors to draw, and how to label them on the figure
 loadingsLabels <- c(
