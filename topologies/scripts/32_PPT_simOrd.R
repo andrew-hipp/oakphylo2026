@@ -1,5 +1,6 @@
 # simulated ordinations for ppt presentation
 # ahipp@mortonarb.org, 2026-07-19
+## edited by Claude Code in an interactive session with Andrew Hipp -- 2026-07-20 (~5% of characters changed)
 
 library(ggplot2)
 bootsRAD = 100 # number of radseq boots to show
@@ -11,8 +12,8 @@ plotdims <- c(7,7)
 
 ax <- rnorm(bootsRAD)
 ay <- rnorm(bootsRAD)
-vx <- rnorm(bootsRAD, mean = refShift)
-vy <- rnorm(bootsRAD)
+vx <- rnorm(bootsRAD, mean = refShift.x)
+vy <- rnorm(bootsRAD, mean = refShift.y)
 
 ax.ref <- rnorm(bootsReseq, sd = sdReseq)
 ay.ref <- rnorm(bootsReseq, sd = sdReseq)
@@ -32,10 +33,12 @@ dat.sim <- data.frame(
         ) # close c
     ) # close data.frame
 
-p = ggplot(dat.sim, aes(x = mds1, y = mds2, fill = reference, shape = type, size = type))
+p = ggplot(dat.sim, aes(x = mds1, y = mds2, fill = reference, shape = Dataset, size = Dataset, alpha = Dataset))
 p <- p + scale_shape_manual(values = c(RAD = 24, reseq = 21))
+p <- p + scale_size_manual(values = c(RAD = 2.5, reseq = 5)) # reseq circles twice the RAD triangles
+p <- p + scale_alpha_manual(values = c(RAD = 0.6, reseq = 1)) # RAD triangles semi-transparent
 p <- p + geom_point()
-p <- p + guides(fill = guide_legend(override.aes = list(shape = 21, size = 3)))
+p <- p + guides(fill = guide_legend(override.aes = list(shape = 21, size = 3)), size = "none", alpha = "none")
 p <- p + theme(
     legend.background = element_rect(fill = NA, color = NA),
     legend.title = element_text(face = "bold"),

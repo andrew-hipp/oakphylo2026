@@ -1,7 +1,9 @@
+## edited by Claude Code in an interactive session with Andrew Hipp -- 2026-07-20 (~10% of characters changed)
 library(ape)
 library(TreeDist)
 library(ggplot2)
 library(TreeTools)
+library(phangorn)
 
 if(!exists('trs')) {
     tr <- rtree(15)
@@ -39,8 +41,14 @@ point.bg <- c("red", rep("blue", length(trs) - 1))
 points(trs.mds$V1, trs.mds$V2, pch = point.pch, col = point.cols, bg = point.bg, cex = 2)
 title(sub = "Red filled triangle: original tree; blue filled circles: SPR trees", cex.sub = 0.8)
 
+## SPR rearrangement + MakeTreeBinary can leave edge matrices in a non-canonical
+## order that plot.phylo rejects ("tree badly conformed; cannot plot"), and can
+## introduce degree-2 singleton nodes. reorder() restores the cladewise edge
+## order plot.phylo expects; collapse.singles() drops any singleton nodes.
+trs.plot <- lapply(trs, function(t) collapse.singles(reorder(t, "cladewise")))
+
 old_par <- par(no.readonly = TRUE)
-for (i in seq_along(trs)) {
+for (i in seq_along(trs.plot)) {
     size <- 0.05
     fig <- c(xnorm[i] - size, xnorm[i] + size,
              ynorm[i] - size, ynorm[i] + size)
@@ -48,7 +56,7 @@ for (i in seq_along(trs)) {
     fig[3] <- max(0, fig[3]); fig[4] <- min(1, fig[4])
     par(fig = fig, new = TRUE, mar = c(0, 0, 0, 0))
     tree.col <- ifelse(i == 1, "red", "blue")
-    plot(trs[[i]], show.tip.label = FALSE, direction = "rightwards",
+    plot(trs.plot[[i]], show.tip.label = FALSE, direction = "rightwards",
          edge.color = tree.col, tip.color = tree.col, no.margin = TRUE)
 }
 par(old_par)
