@@ -33,7 +33,8 @@ missingChars  <- c("N", "n", "?", "-", ".")   # characters treated as MISSING
 binarize      <- FALSE         # TRUE -> hard present/absent; FALSE -> proportion ramp
 binThreshold  <- 0.5           # if binarize: bin is "present" when >= this fraction present
 showTipLabels <- FALSE         # 261 taxa is usually too many to read on a slide
-pdfWidth      <- 13.333        # inches, standard 16:9 PowerPoint slide
+pdfWidth      <- 7 # going for a panel on the right side
+# pdfWidth      <- 13.333        # inches, standard 16:9 PowerPoint slide
 pdfHeight     <- 7.5
 
 ## ---- resolve paths (works whether wd is topologies/ or the repo root) -------
