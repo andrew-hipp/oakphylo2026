@@ -6,7 +6,7 @@ doPPT = TRUE # change this if you also want to run the PPT visualizations, just 
 todo <- dir('scripts/')
 if(!rogues) todo <- grep('rogues', todo, invert = T, value = T)
 if(!doPPT) todo <- grep('PPT', todo, invert = T, value = T)
-todo <- grep('99_|doItAll', todo, invert = T, value = T)
+todo <- grep('07_raxmlStats|99_|doItAll', todo, invert = T, value = T)
 
 for(i in todo) {
     message(paste('*** DOING SCRIPT', i, '***'))
