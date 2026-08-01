@@ -20,9 +20,10 @@ if(!exists('trees.envfit'))
 
 ## which clade vectors to draw, and how to label them on the figure
 loadingsLabels <- c(
-  roburoids_albae = "Roburoids + Albae",
-  Quercus_CA      = "CA white oaks",
-  Quercus_MX      = "MX white oaks"
+  roburoids_albae = "Eurasian Roburoids\nsister to ENA Albae",
+  mac_bic = "Q. macrocarpa\nsister to Q. bicolor"
+  # Quercus_CA      = "CA white oaks",
+  # Quercus_MX      = "MX white oaks"
 )
 
 ef <- trees.envfit$all
@@ -69,15 +70,15 @@ treeplot.loadings <- treeplot.Final +
     data = loadings, inherit.aes = FALSE,
     aes(x = 0, y = 0, xend = mds1s, yend = mds2s),
     arrow = arrow(length = unit(0.025, 'npc'), type = 'closed'),
-    colour = 'grey25', linewidth = 0.7
+    colour = 'grey25', linewidth = 0.7, lty = 'dashed'
   ) +
-  # geom_text_repel(
-  #   data = loadings, inherit.aes = FALSE,
-  #   aes(x = mds1s, y = mds2s, label = clade),
-  #   size = 4, fontface = 'bold', colour = 'grey15',
-  #   segment.colour = 'grey60', min.segment.length = 0,
-  #   box.padding = 0.4, point.padding = 0.2
-  # ) +
+  geom_text_repel(
+    data = loadings, inherit.aes = FALSE,
+    aes(x = mds1s, y = mds2s, label = clade),
+    size = 4, fontface = 'bold', colour = 'grey15',
+    segment.colour = 'grey60', min.segment.length = 0,
+    box.padding = 0.4, point.padding = 0.2
+  ) +
   pptStyle
 
 if(globalDoPDF) {
