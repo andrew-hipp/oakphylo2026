@@ -2,8 +2,9 @@
 
 library(ggplot2)
 library(grid)
-library(lmer)
+library(lme4)
 library(lmerTest)
+library(effectsize)
 
 cbbP2 <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 lbs <- c(
@@ -80,6 +81,9 @@ ggsave('out/figures/PPT_55b_empirical-onlyMDS_withVectors.pdf', plot = p.emp.wVe
 
 temp1 = lmer(mds1 ~ reference + roburoids_albae + mac_bic + (1 | treeType), trees.points.emp[trees.points.emp$reference != 'denovo', ])
 temp2 = lmer(mds2 ~ reference + roburoids_albae + mac_bic + (1 | treeType), trees.points.emp[trees.points.emp$reference != 'denovo', ])
+
+eta_squared(anova(temp1))
+eta_squared(anova(temp2))
 
 anova(temp1)
 anova(temp2)
