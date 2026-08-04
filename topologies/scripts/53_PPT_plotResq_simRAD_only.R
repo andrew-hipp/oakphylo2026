@@ -13,7 +13,7 @@ treeplot.refSim <-
     fill = Reference,
     color = SNPmap))
 treeplot.refSim <- treeplot.refSim + 
-  geom_point() +
+  geom_point(size = 2.8) +
 #   scale_fill_manual(values = cbbPalette) + 
   scale_color_manual(values = c(reference = 'black', de_novo = 'white'))+
 #   geom_label_repel(

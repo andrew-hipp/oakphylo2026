@@ -149,10 +149,10 @@ plot(trs.mds$V1, trs.mds$V2, type = "n",
 ## SPR points first, then the original (red triangle) last, larger, so it sits on
 ## top and is the most visible point.
 points(trs.mds$V1[others], trs.mds$V2[others],
-       pch = 21, col = "blue", bg = "blue", cex = 2)
+       pch = 21, col = "blue", bg = "blue", cex = 1)
 points(trs.mds$V1[1], trs.mds$V2[1],
-       pch = 24, col = "red", bg = "red", cex = 2.8, lwd = 2)
-title(sub = "Red filled triangle: original tree; blue filled circles: SPR trees", cex.sub = 0.8)
+       pch = 21, col = "red", bg = "red", cex = 2, lwd = 2)
+title(sub = "Red filled circle: original tree; blue filled circles: SPR trees", cex.sub = 0.8)
 
 ## thumbnail box sizes (inches -> NDC). the original is largest; all lettered
 ## (SPR) trees, A included, share one smaller size.
